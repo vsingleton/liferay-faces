@@ -155,6 +155,24 @@ public class FACES1439PortletTest {
 		
 		assertTrue("Model bean should have updated via ajax when characters were typed", comments1Output.getText().contains("Hello world 1"));
 		
+		// hide iframe 1
+		showHideOne.click();
+		Thread.sleep(250);
+		
+		logger.log(Level.INFO, "comments1Output.getText() = " + comments1Output.getText() + " ... after hide");
+		
+		// show iframe 1
+		showHideOne.click();
+		Thread.sleep(250);
+		
+		browser.switchTo().frame(iframe1);
+		WebElement iframe1active = browser.switchTo().activeElement();
+		logger.log(Level.INFO, "iframe1active.getText() = " + iframe1active.getText() + " ... after hide and show");
+		String textFromIframe1 = iframe1active.getText();
+		browser.switchTo().defaultContent();
+		
+		assertTrue("The first text editor should contain 'Hello world 1', but contains '"+textFromIframe1+"'", textFromIframe1.contains("Hello world 1"));
+		
 	}
 	
 	@Test
@@ -163,18 +181,37 @@ public class FACES1439PortletTest {
 	public void htmlEditor2() throws Exception {
 		
 		logger.log(Level.INFO, "Typing into htmlEditor2 ...");
+		iframe2.click();
+		Thread.sleep(500);
 		iframe2.sendKeys("Hello world 2");
 		Thread.sleep(1000);
 		logger.log(Level.INFO, "comments2Output.getText() = " + comments2Output.getText());
 		assertFalse("Model bean should not be updated yet since we have not tabbed-out of the field", comments2Output.getText().contains("Hello world 2"));
 		
 		// iframe2.sendKeys(Keys.TAB);
-		// iframe2.sendKeys(Keys.TAB, Keys.TAB);
-		// iframe2.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB);
-		iframe2.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB);
-		Thread.sleep(1000);
+		// iframe2.sendKeys does not send the keys to the iframe but to the active frame, use browser.switchTo() to make the iframe active, or do this
+		
+		(new Actions(browser)).sendKeys(Keys.TAB).perform();
+		Thread.sleep(500);
 		logger.log(Level.INFO, "comments2Output.getText() = " + comments2Output.getText());
 		assertTrue("Model bean needs to have been updated via ajax after tabbing-out of field", comments2Output.getText().contains("Hello world 2"));
+		
+		// hide iframe2
+		showHideTwo.click();
+		Thread.sleep(250);
+		logger.log(Level.INFO, "comments2Output.getText() = " + comments2Output.getText() + " ... after hide");
+		
+		// show iframe2
+		showHideTwo.click();
+		Thread.sleep(250);
+		
+		browser.switchTo().frame(iframe2);
+		WebElement iframe2active = browser.switchTo().activeElement();
+		logger.log(Level.INFO, "iframe2active.getText() = " + iframe2active.getText() + " ... after hide and show");
+		String textFromIframe2 = iframe2active.getText();
+		browser.switchTo().defaultContent();
+		
+		assertTrue("The first text editor should contain 'Hello world 1', but contains '"+textFromIframe2+"'", textFromIframe2.contains("Hello world 2"));
 		
 	}
 	
