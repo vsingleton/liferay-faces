@@ -109,8 +109,9 @@ public class FACES1427PortletTest {
 	@Before
 	public void beforeEachTest() {
 		
-//		browser.manage().deleteAllCookies();
-//		logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
+		// Aparently this is necessary _sometimes_ for this test to pass ... not sure why.
+		browser.manage().deleteAllCookies();
+		logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
 		
 	}
 	
@@ -169,18 +170,6 @@ public class FACES1427PortletTest {
 		logger.log(Level.INFO, "attachment.getText() = " + attachment.getText());
 		
 		assertTrue("attachment should be listed now after clicking 'Add Attachment', but it is not there", isThere(attachmentXpath));
-		
-	}
-	
-	@Test
-	@RunAsClient
-	@InSequence(1100)
-	public void reset() throws Exception {
-		
-		logger.log(Level.INFO, "browser.navigate().to("+url+")");
-		browser.navigate().to(url);
-		// TODO We should not have to have this reset function
-		// assertTrue("We should not have to have this reset function", false);
 		
 	}
 	
