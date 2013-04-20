@@ -102,7 +102,7 @@ public class Jsf2LoginPortletTest {
 		// String url =
 		// "http://localhost:8080/group/bridge-demos/jsf2?js_fast_load=0";
 		// String url = "http://localhost:8080/group/bridge-demos/jsf2";
-		String url = "http://localhost:8080/web/guest/signin";
+		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 		logger.log(Level.INFO, "url = " + url);
 		
 		browser.get(url);
@@ -149,7 +149,7 @@ public class Jsf2LoginPortletTest {
 	@InSequence(2)
 	public void signIn() throws Exception {
 
-		String url = "http://localhost:8080/web/guest/signin";
+		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 
 		logger.log(Level.INFO, "url = " + url);
 		browser.get(url);

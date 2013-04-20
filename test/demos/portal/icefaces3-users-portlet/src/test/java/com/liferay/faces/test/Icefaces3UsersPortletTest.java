@@ -35,7 +35,7 @@ public class Icefaces3UsersPortletTest {
 	
 	// @ArquillianResource
 	// URL portalURL;
-	String url = "http://localhost:8080/web/guest/signin";
+	String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 
 	@Drone
 	WebDriver browser;
@@ -116,7 +116,7 @@ public class Icefaces3UsersPortletTest {
 
 	public void signIn() throws Exception {
 		
-		url = "http://localhost:8080/web/guest/signin";
+		url = "http://localhost:8080/web/guest/jsf2-sign-in";
 		logger.log(Level.INFO, "browser.navigate().to("+url+")");
 		browser.navigate().to(url);
 		// waitModel(browser);

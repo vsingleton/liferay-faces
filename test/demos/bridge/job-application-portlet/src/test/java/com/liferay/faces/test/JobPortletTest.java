@@ -40,7 +40,7 @@ public class JobPortletTest {
 	
 	// @ArquillianResource
 	// URL portalURL;
-	String signInUrl = "http://localhost:8080/web/guest/signin";
+	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/jsf2";
 
 	@Drone
