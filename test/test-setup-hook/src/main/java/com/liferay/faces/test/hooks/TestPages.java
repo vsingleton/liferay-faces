@@ -15,7 +15,6 @@ package com.liferay.faces.test.hooks;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.liferay.faces.test.hooks.PortalPage;
 
 /**
  * The purpose of this class is to isolate source code differences between different versions of Liferay Portal.
@@ -75,6 +74,6 @@ public class TestPages {
 	
 	static {
 		GUEST_PAGES = new ArrayList<PortalPage>();
-		GUEST_PAGES.add(new PortalPage("SignIn", "1_WAR_jsf2loginportlet"));
+		GUEST_PAGES.add(new PortalPage("JSF2-SIGN-IN", "1_WAR_jsf2loginportlet"));
 	}
 }

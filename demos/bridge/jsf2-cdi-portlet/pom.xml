@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -10,6 +11,18 @@
 	<artifactId>jsf2-cdi-portlet</artifactId>
 	<packaging>war</packaging>
 	<name>JSF2 CDI Portlet</name>
+
+	<profiles>
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -25,12 +38,20 @@
 			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-el</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.cdi</groupId>
+			<artifactId>cdi1-portlet-bridge-shared</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
@@ -41,16 +62,6 @@
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>liferay-faces-alloy</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>1.1.10.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.cdi</groupId>
-			<artifactId>cdi1-portlet-bridge-shared</artifactId>
-			<version>6.2.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

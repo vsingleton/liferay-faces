@@ -80,18 +80,19 @@
 	</modules>
 
 	<properties>
+		<cdi.version>1.0-SP4</cdi.version>
 		<codename>Galatia</codename>
 		<full.version>${project.version} (${codename} / ${timestamp} AD)</full.version>
-		<icefaces3.version>3.2.0</icefaces3.version>
-		<icefaces3.mojarra.version>2.1.6</icefaces3.mojarra.version>
+		<icefaces3.version>3.3.0</icefaces3.version>
 		<liferay.version>6.1.1</liferay.version>
 		<log4j.version>1.2.14</log4j.version>
-		<mojarra.version>2.1.20</mojarra.version>
+		<mojarra.version>2.1.21</mojarra.version>
 		<myfaces.version>2.1.8</myfaces.version>
 		<primefaces3.version>3.5</primefaces3.version>
 		<richfaces4.version>4.3.1.Final</richfaces4.version>
 		<selenium.version>1.0.1</selenium.version>
 		<tck.version>jsr329-1.0.1-liferay</tck.version>
+		<weld.version>1.1.10.Final</weld.version>
 	</properties>
 
 	<build>
@@ -454,6 +455,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>com.liferay.cdi</groupId>
+				<artifactId>cdi1-portlet-bridge-shared</artifactId>
+				<version>6.2.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>portal-service</artifactId>
 				<version>${liferay.version}</version>
@@ -500,6 +506,12 @@
 				<groupId>javax.el</groupId>
 				<artifactId>el-api</artifactId>
 				<version>1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>${cdi.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -601,6 +613,11 @@
 						<artifactId>el-api</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.weld.servlet</groupId>
+				<artifactId>weld-servlet</artifactId>
+				<version>${weld.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.primefaces</groupId>
