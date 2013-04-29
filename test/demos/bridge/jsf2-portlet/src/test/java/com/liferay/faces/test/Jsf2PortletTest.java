@@ -669,6 +669,12 @@ public class Jsf2PortletTest {
 	public void fileUpload() throws Exception {
 		
 		boolean uploaded = false;
+		String path = "/tmp";
+		
+		String os = System.getProperty("os.name");
+		if (os.indexOf("win") > -1) {
+			path = "C:\\WINDOWS\\Temp";
+		}
 		
 		if (isThere(fileUploadChooserXpath)) {
 			logger.log(Level.INFO, "isThere(fileUploadChooserXpath) = " + isThere(fileUploadChooserXpath));
@@ -678,8 +684,8 @@ public class Jsf2PortletTest {
 			browser.findElement(By.xpath("//input[@type='submit' and @value='Add Attachment']")).click();
 			Thread.sleep(500);
 		}
-		logger.log(Level.INFO, "entering in /tmp/kitten.png for fileUploadChooser ...");
-		fileUploadChooser.sendKeys("/tmp/kitten.png");
+		logger.log(Level.INFO, "entering in "+path+"/liferay-jsf-jersey.png for fileUploadChooser ...");
+		fileUploadChooser.sendKeys(path + "/liferay-jsf-jersey.png");
 		
 		Thread.sleep(50);
 		logger.log(Level.INFO, "submitting the uploaded file ...");
@@ -709,7 +715,7 @@ public class Jsf2PortletTest {
 			}
 		}
 		if (uploaded) {
-			assertTrue("uploadedFile.getText().contains('kitten') after 3 seconds", uploadedFile.getText().contains("kitten"));
+			assertTrue("uploadedFile.getText().contains('jersey') after 3 seconds", uploadedFile.getText().contains("jersey"));
 		} else {
 			assertTrue("file should have been uploaded, but was not ...", uploaded);
 		}
