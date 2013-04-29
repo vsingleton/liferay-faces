@@ -85,27 +85,5 @@
                 </plugins>
             </build>
         </profile>
-		<profile>
-			<id>windows</id>
-			<activation>
-				<os>
-					<family>Windows</family>
-				</os>
-			</activation>
-			<properties>
-				<os.temp.folder>C:\Windows\Temp</os.temp.folder>
-			</properties>
-		</profile>
-		<profile>
-			<id>unix</id>
-			<activation>
-				<os>
-					<family>unix</family>
-				</os>
-			</activation>
-			<properties>
-				<os.temp.folder>/tmp</os.temp.folder>
-			</properties>
-		</profile>
     </profiles>
 </project>
