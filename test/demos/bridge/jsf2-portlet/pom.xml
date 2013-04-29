@@ -68,6 +68,6 @@
             <os.temp.folder>/tmp</os.temp.folder>
          </properties>
       </profile>
-   <profiles>
+   </profiles>
 
 </project>
