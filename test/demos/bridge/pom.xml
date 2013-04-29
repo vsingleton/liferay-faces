@@ -47,6 +47,23 @@
 
     <build>
         <plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<copy file="job-application-portlet/src/test/resources/liferay-jsf-jersey.png" todir="${os.temp.folder}" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -84,5 +101,27 @@
                 </plugins>
             </build>
         </profile>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+				</os>
+			</activation>
+			<properties>
+				<os.temp.folder>C:\Windows\Temp</os.temp.folder>
+			</properties>
+		</profile>
+		<profile>
+			<id>unix</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<os.temp.folder>/tmp</os.temp.folder>
+			</properties>
+		</profile>
     </profiles>
 </project>
