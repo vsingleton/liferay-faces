@@ -771,31 +771,31 @@ public class Jsf2JspPortletTest {
 		
 		// asserting correct data is still there
 		assertTrue("asserting that firstNameField.getText().equals('David'), "+
-				"but it is '"+firstNameField.getText()+"'", 
+				"but it is '"+firstNameField.getAttribute("value")+"'", 
 				firstNameField.getAttribute("value").equals("David")
 			);
 		assertTrue("asserting that lastNameField.getText().equals('Samuel'), "+
-				"but it is '"+lastNameField.getText()+"'", 
+				"but it is '"+lastNameField.getAttribute("value")+"'", 
 				lastNameField.getAttribute("value").equals("Samuel")
 			);
 		assertTrue("asserting that emailAddressField.getText().equals('no_need@just.pray'), "+
-				"but it is '"+emailAddressField.getText()+"'", 
+				"but it is '"+emailAddressField.getAttribute("value")+"'", 
 				emailAddressField.getAttribute("value").equals("no_need@just.pray")
 			);
 		assertTrue("asserting that phoneNumberField.getText().equals('(way) too-good'), "+
-				"but it is '"+phoneNumberField.getText()+"'", 
+				"but it is '"+phoneNumberField.getAttribute("value")+"'", 
 				phoneNumberField.getAttribute("value").equals("(way) too-good")
 			);
 		assertTrue("asserting that dateOfBirthField.getText().equals('01/02/3456'), "+
-				"but it is '"+dateOfBirthField.getText()+"'", 
+				"but it is '"+dateOfBirthField.getAttribute("value")+"'", 
 				dateOfBirthField.getAttribute("value").equals("01/02/3456")
 			);
 		assertTrue("asserting that postalCodeField.getText().equals('32801'), "+
-				"but it is '"+postalCodeField.getText()+"'", 
+				"but it is '"+postalCodeField.getAttribute("value")+"'", 
 				postalCodeField.getAttribute("value").equals("32801")
 			);
 		assertTrue("asserting that comments.getText().equals('If as one people speaking the same language, they have begun to do this ...'), "+
-				"but it is '"+comments.getText()+"'", 
+				"but it is '"+comments.getAttribute("value")+"'", 
 				comments.getAttribute("value").equals("If as one people speaking the same language, they have begun to do this ...")
 			);
 		
