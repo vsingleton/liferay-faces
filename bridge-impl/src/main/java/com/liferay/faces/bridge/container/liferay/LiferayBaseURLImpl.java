@@ -11,61 +11,80 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
+package com.liferay.faces.bridge.container.liferay;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
+
+import com.liferay.faces.bridge.util.FacesURLEncoder;
+import com.liferay.faces.util.lang.StringPool;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class BaseURLWrapper implements BaseURL {
+public abstract class LiferayBaseURLImpl implements LiferayBaseURL {
+
+	// Private Data Members
+	private LiferayURLGenerator liferayURLGenerator;
+	private Map<String, String[]> parameterMap;
+
+	public LiferayBaseURLImpl(LiferayURLGenerator liferayURLGenerator) {
+		this.liferayURLGenerator = liferayURLGenerator;
+		this.parameterMap = new LinkedHashMap<String, String[]>();
+	}
 
 	public void addProperty(String key, String value) {
-		getWrapped().addProperty(key, value);
+		// no-op
 	}
 
-	@Override
-	public String toString() {
-		return getWrapped().toString();
+	public void write(Writer writer) throws IOException {
+		writer.write(toString());
 	}
 
-	public void write(Writer out) throws IOException {
-		getWrapped().write(out);
+	public void write(Writer writer, boolean escapeXML) throws IOException {
+
+		String valueAsString = toString();
+
+		if (escapeXML) {
+			valueAsString = FacesURLEncoder.encode(valueAsString, StringPool.UTF8);
+		}
+
+		writer.write(valueAsString);
 	}
 
-	public void write(Writer out, boolean escapeXML) throws IOException {
-		getWrapped().write(out, escapeXML);
+	protected abstract void resetToString();
+
+	public LiferayURLGenerator getLiferayURLGenerator() {
+		return liferayURLGenerator;
 	}
 
 	public void setParameter(String name, String value) {
-		getWrapped().setParameter(name, value);
+		parameterMap.put(name, new String[] { value });
 	}
 
 	public void setParameter(String name, String[] values) {
-		getWrapped().setParameter(name, values);
+		parameterMap.put(name, values);
 	}
 
 	public Map<String, String[]> getParameterMap() {
-		return getWrapped().getParameterMap();
+		return parameterMap;
 	}
 
 	public void setParameters(Map<String, String[]> parameters) {
-		getWrapped().setParameters(parameters);
+		parameterMap.putAll(parameters);
 	}
 
 	public void setProperty(String key, String value) {
-		getWrapped().setProperty(key, value);
+		// no-op
 	}
 
 	public void setSecure(boolean secure) throws PortletSecurityException {
-		getWrapped().setSecure(secure);
+		// no-op
 	}
 
-	public abstract BaseURL getWrapped();
 }

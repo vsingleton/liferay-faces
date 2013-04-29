@@ -11,9 +11,8 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
+package com.liferay.faces.bridge.container.liferay;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
@@ -24,7 +23,7 @@ import javax.portlet.WindowStateException;
 /**
  * @author  Neil Griffin
  */
-public abstract class PortletURLWrapper extends BaseURLWrapper implements PortletURL, FacesWrapper<PortletURL> {
+public abstract class LiferayPortletURLFriendlyImpl extends LiferayBaseURLFriendlyImpl implements LiferayPortletURL {
 
 	public void removePublicRenderParameter(String name) {
 		getWrapped().removePublicRenderParameter(name);
@@ -36,6 +35,7 @@ public abstract class PortletURLWrapper extends BaseURLWrapper implements Portle
 
 	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
 		getWrapped().setPortletMode(portletMode);
+		resetToString();
 	}
 
 	public WindowState getWindowState() {
@@ -44,9 +44,9 @@ public abstract class PortletURLWrapper extends BaseURLWrapper implements Portle
 
 	public void setWindowState(WindowState windowState) throws WindowStateException {
 		getWrapped().setWindowState(windowState);
+		resetToString();
 	}
 
 	@Override
 	public abstract PortletURL getWrapped();
-
 }

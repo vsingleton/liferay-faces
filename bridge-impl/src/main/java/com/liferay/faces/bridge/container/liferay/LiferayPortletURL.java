@@ -13,60 +13,15 @@
  */
 package com.liferay.faces.bridge.container.liferay;
 
-import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
-import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
 
 
 /**
+ * This is a marker interface that extends the {@link PortletURL} interface in order to provide more readable names for
+ * implementing classes.
+ *
  * @author  Neil Griffin
  */
-public abstract class LiferayPortletURL extends LiferayBaseURL implements PortletURL {
-
-	// Private Data Members
-	private PortletMode portletMode;
-	private WindowState windowState;
-
-	public LiferayPortletURL(ParsedPortletURL parsedPortletURL, String responseNamespace) {
-		super(parsedPortletURL, responseNamespace);
-		portletMode = parsedPortletURL.getPortletMode();
-		windowState = parsedPortletURL.getWindowState();
-	}
-
-	public void removePublicRenderParameter(String name) {
-		// Ignore
-	}
-
-	@Override
-	public boolean isPortletModeRequired() {
-		return true;
-	}
-
-	@Override
-	public boolean isWindowStateRequired() {
-		return true;
-	}
-
-	@Override
-	public PortletMode getPortletMode() {
-		return portletMode;
-	}
-
-	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
-		this.portletMode = portletMode;
-		resetToString();
-	}
-
-	@Override
-	public WindowState getWindowState() {
-		return windowState;
-	}
-
-	public void setWindowState(WindowState windowState) throws WindowStateException {
-		this.windowState = windowState;
-		resetToString();
-	}
+public interface LiferayPortletURL extends PortletURL {
 
 }

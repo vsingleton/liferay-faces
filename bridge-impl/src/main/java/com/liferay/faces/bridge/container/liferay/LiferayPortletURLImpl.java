@@ -11,12 +11,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
+package com.liferay.faces.bridge.container.liferay;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
-import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
@@ -24,29 +22,51 @@ import javax.portlet.WindowStateException;
 /**
  * @author  Neil Griffin
  */
-public abstract class PortletURLWrapper extends BaseURLWrapper implements PortletURL, FacesWrapper<PortletURL> {
+public abstract class LiferayPortletURLImpl extends LiferayBaseURLImpl implements LiferayPortletURL {
+
+	// Private Data Members
+	private PortletMode portletMode;
+	private String toStringValue;
+	private WindowState windowState;
+
+	public LiferayPortletURLImpl(LiferayURLGenerator liferayURLGenerator) {
+		super(liferayURLGenerator);
+	}
 
 	public void removePublicRenderParameter(String name) {
-		getWrapped().removePublicRenderParameter(name);
-	}
-
-	public PortletMode getPortletMode() {
-		return getWrapped().getPortletMode();
-	}
-
-	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
-		getWrapped().setPortletMode(portletMode);
-	}
-
-	public WindowState getWindowState() {
-		return getWrapped().getWindowState();
-	}
-
-	public void setWindowState(WindowState windowState) throws WindowStateException {
-		getWrapped().setWindowState(windowState);
+		// no-op
 	}
 
 	@Override
-	public abstract PortletURL getWrapped();
+	public String toString() {
+
+		if (toStringValue == null) {
+			toStringValue = getLiferayURLGenerator().generateURL(getParameterMap(), portletMode, windowState);
+		}
+
+		return toStringValue;
+	}
+
+	protected void resetToString() {
+		this.toStringValue = null;
+	}
+
+	public PortletMode getPortletMode() {
+		return portletMode;
+	}
+
+	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
+		this.portletMode = portletMode;
+		resetToString();
+	}
+
+	public WindowState getWindowState() {
+		return windowState;
+	}
+
+	public void setWindowState(WindowState windowState) throws WindowStateException {
+		this.windowState = windowState;
+		resetToString();
+	}
 
 }

@@ -11,30 +11,26 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
+package com.liferay.faces.bridge.container.liferay;
 
-import javax.faces.FacesWrapper;
-import javax.portlet.ResourceURL;
+import javax.portlet.PortletMode;
+import javax.portlet.WindowState;
 
 
 /**
+ * See class-level JavaDoc for {@link LiferayURLGeneratorBaseImpl}.
+ *
  * @author  Neil Griffin
  */
-public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, FacesWrapper<ResourceURL> {
+public class LiferayURLGeneratorRenderImpl extends LiferayURLGeneratorBaseImpl {
 
-	public String getCacheability() {
-		return getWrapped().getCacheability();
+	public LiferayURLGeneratorRenderImpl(String renderURL, PortletMode portletMode, String responseNamespace,
+		WindowState windowState) {
+		super(renderURL, portletMode, responseNamespace, windowState);
 	}
 
-	public void setCacheability(String cacheLevel) {
-		getWrapped().setCacheability(cacheLevel);
+	public String getPortletLifecycleId() {
+		return LiferayConstants.LIFECYCLE_RENDER_PHASE_ID;
 	}
-
-	public void setResourceID(String resourceID) {
-		getWrapped().setResourceID(resourceID);
-	}
-
-	@Override
-	public abstract ResourceURL getWrapped();
 
 }

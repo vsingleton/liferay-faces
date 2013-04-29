@@ -11,30 +11,15 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
-
-import javax.faces.FacesWrapper;
-import javax.portlet.ResourceURL;
-
+package com.liferay.faces.bridge.container.liferay;
 
 /**
  * @author  Neil Griffin
  */
-public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, FacesWrapper<ResourceURL> {
+public class LiferayRenderURLImpl extends LiferayPortletURLImpl implements LiferayRenderURL {
 
-	public String getCacheability() {
-		return getWrapped().getCacheability();
+	public LiferayRenderURLImpl(LiferayURLGenerator liferayURLGenerator) {
+		super(liferayURLGenerator);
 	}
-
-	public void setCacheability(String cacheLevel) {
-		getWrapped().setCacheability(cacheLevel);
-	}
-
-	public void setResourceID(String resourceID) {
-		getWrapped().setResourceID(resourceID);
-	}
-
-	@Override
-	public abstract ResourceURL getWrapped();
 
 }

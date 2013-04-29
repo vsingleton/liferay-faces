@@ -11,30 +11,48 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.container;
-
-import javax.faces.FacesWrapper;
-import javax.portlet.ResourceURL;
-
+package com.liferay.faces.bridge.container.liferay;
 
 /**
  * @author  Neil Griffin
  */
-public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, FacesWrapper<ResourceURL> {
+public class LiferayResourceURLImpl extends LiferayBaseURLImpl implements LiferayResourceURL {
 
-	public String getCacheability() {
-		return getWrapped().getCacheability();
-	}
+	// Private Data Members
+	private String cacheLevel;
+	private String resourceId;
+	private String toStringValue;
 
-	public void setCacheability(String cacheLevel) {
-		getWrapped().setCacheability(cacheLevel);
-	}
-
-	public void setResourceID(String resourceID) {
-		getWrapped().setResourceID(resourceID);
+	public LiferayResourceURLImpl(LiferayURLGenerator liferayURLGenerator) {
+		super(liferayURLGenerator);
 	}
 
 	@Override
-	public abstract ResourceURL getWrapped();
+	public String toString() {
+
+		if (toStringValue == null) {
+			toStringValue = getLiferayURLGenerator().generateURL(getParameterMap(), resourceId);
+		}
+
+		return toStringValue;
+	}
+
+	@Override
+	protected void resetToString() {
+		this.toStringValue = null;
+	}
+
+	public String getCacheability() {
+		return cacheLevel;
+	}
+
+	public void setCacheability(String cacheLevel) {
+		this.cacheLevel = cacheLevel;
+	}
+
+	public void setResourceID(String resourceID) {
+		this.resourceId = resourceID;
+		resetToString();
+	}
 
 }
