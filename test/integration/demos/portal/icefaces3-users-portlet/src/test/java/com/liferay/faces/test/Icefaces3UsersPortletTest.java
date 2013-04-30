@@ -67,6 +67,18 @@ public class Icefaces3UsersPortletTest {
 	private WebElement logo;
 	
 	// Elements for reseting the John Adams user before running the test 
+	private static final String controlPanelTestSetupXpath = "//span[text()=' Control Panel ']";
+	@FindBy(xpath = controlPanelTestSetupXpath)
+	private WebElement controlPanelTestSetup;
+	private static final String usersAndOrganizationsLinkTestSetupXpath = "//a[text()=' Users and Organizations ']";
+	@FindBy(xpath = usersAndOrganizationsLinkTestSetupXpath)
+	private WebElement usersAndOrganizationsLinkTestSetup;
+	private static final String searchAllUsersLinkTestSetupXpath = "//a[text()='Search All Users']";
+	@FindBy(xpath = searchAllUsersLinkTestSetupXpath)
+	private WebElement searchAllUsersLinkTestSetup;
+	private static final String advancedSearchLinkTestSetupXpath = "//a[contains(text(), 'Advanced')]";
+	@FindBy(xpath = advancedSearchLinkTestSetupXpath)
+	private WebElement advancedSearchLinkTestSetup;
 	private static final String selectStatusBeforeXpath = "//select[contains(@id, 'status')]";
 	@FindBy(xpath = selectStatusBeforeXpath)
 	private WebElement selectStatusBefore;
@@ -295,7 +307,17 @@ public class Icefaces3UsersPortletTest {
 	public void testSetup() throws Exception{
 		
 		signIn();
-		browser.navigate().to("http://localhost:8080/group/control_panel/manage?p_p_id=125&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&doAsGroupId=10180&refererPlid=10183&_125_struts_action=%2Fusers_admin%2Fview&_125_tabs1=users&_125_usersListView=flat-users&_125_saveUsersListView=true");
+		
+		controlPanelTestSetup.click();
+		Thread.sleep(500);
+		usersAndOrganizationsLinkTestSetup.click();
+		Thread.sleep(500);
+		searchAllUsersLinkTestSetup.click();
+		Thread.sleep(500);
+		if(isThere(advancedSearchLinkTestSetupXpath) && advancedSearchLinkTestSetup.isDisplayed()){
+			advancedSearchLinkTestSetup.click();
+		}
+		Thread.sleep(500);
 		
 		selectStatusBefore.click();
 		(new Actions(browser)).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.TAB).perform();
@@ -305,8 +327,9 @@ public class Icefaces3UsersPortletTest {
 			johnAdamsMenuBefore.click();
 			activateJohnAdamsBefore.click();
 		}
-		
-		browser.navigate().to("http://localhost:8080/group/control_panel/manage?p_p_id=125&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&doAsGroupId=10180&refererPlid=10183&_125_struts_action=%2Fusers_admin%2Fedit_user&_125_redirect=http%3A%2F%2Flocalhost%3A8080%2Fgroup%2Fcontrol_panel%2Fmanage%3Fp_p_id%3D125%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26doAsGroupId%3D10180%26refererPlid%3D10183%26_125_refererPlid%3D10183%26_125_doAsGroupId%3D10180%26_125_cur1%3D1%26_125_delta1%3D20%26_125_keywords%3D%26_125_advancedSearch%3Dfalse%26_125_andOperator%3Dtrue%26_125_city%3D%26_125_countryId%3D0%26_125_name%3D%26_125_parentOrganizationId%3D0%26_125_regionId%3D0%26_125_street%3D%26_125_zip%3D%26_125_orderByCol%3Dlast-name%26_125_orderByType%3Dasc%26_125_resetCur%3Dfalse%26_125_cur2%3D1%26_125_delta2%3D20%26_125_status%3D0%26_125_emailAddress%3D%26_125_firstName%3D%26_125_lastName%3D%26_125_middleName%3D%26_125_organizationId%3D0%26_125_roleId%3D0%26_125_screenName%3D%26_125_userGroupId%3D0&_125_p_u_i_d=11616");
+				
+		usersAndOrganizationsLinkTestSetup.click();
+		johnAdamsBefore.click();
 		
 		if(deleteLinkBefore.isDisplayed()) {
 			deleteLinkBefore.click();
