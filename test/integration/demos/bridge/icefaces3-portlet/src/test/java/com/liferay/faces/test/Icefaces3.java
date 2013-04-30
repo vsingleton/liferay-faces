@@ -165,7 +165,7 @@ public class Icefaces3 {
 	private static final String submitFileXpath = "//input[@type='submit' and @value='Add Attachment']";
 	@FindBy(xpath = submitFileXpath)
 	private WebElement submitFile;
-	private static final String uploadedFileXpath = "//span[contains(text(),'kitten')]";
+	private static final String uploadedFileXpath = "//span[contains(text(),'jersey')]";
 	@FindBy(xpath = uploadedFileXpath)
 	private WebElement uploadedFile;
 	

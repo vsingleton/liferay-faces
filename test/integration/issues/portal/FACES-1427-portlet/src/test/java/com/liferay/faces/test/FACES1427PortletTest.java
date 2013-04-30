@@ -65,8 +65,8 @@ public class FACES1427PortletTest {
 	@FindBy(xpath = addAttachmentXpath)
 	private WebElement addAttachment;
 	
-	// <span id="A2399:f1:_t8:0:_t11">kitten.png</span>
-	private static final String attachmentXpath = "//span[contains(text(),'kitten')]";
+	// <span id="A2399:f1:_t8:0:_t11">liferay-jsf-jersey.png</span>
+	private static final String attachmentXpath = "//span[contains(text(),'jersey')]";
 	@FindBy(xpath = attachmentXpath)
 	private WebElement attachment;
 	
@@ -160,8 +160,15 @@ public class FACES1427PortletTest {
 	@RunAsClient
 	@InSequence(1100)
 	public void steps1and2() throws Exception {
+
+      String path = "/tmp/";
+    
+      String os = System.getProperty("os.name");
+      if (os.indexOf("win") > -1) {
+         path = "C:\\WINDOWS\\Temp\\";
+      }
 		
-		fileEntryComponent.sendKeys("/tmp/kitten.png");
+		fileEntryComponent.sendKeys(path+"liferay-jsf-jersey.png");
 		Thread.sleep(50);
 		addAttachment.click();
 		Thread.sleep(500);

@@ -165,7 +165,7 @@ public class Icefaces3PortletTest {
 	private static final String submitFileXpath = "//input[@type='submit' and @value='Add Attachment']";
 	@FindBy(xpath = submitFileXpath)
 	private WebElement submitFile;
-	private static final String uploadedFileXpath = "//span[contains(text(),'kitten')]";
+	private static final String uploadedFileXpath = "//span[contains(text(),'jersey')]";
 	@FindBy(xpath = uploadedFileXpath)
 	private WebElement uploadedFile;
 	
@@ -669,11 +669,11 @@ public class Icefaces3PortletTest {
 	public void fileUpload() throws Exception {
 		
 		boolean uploaded = false;
-		String path = "/tmp";
+		String path = "/tmp/";
 		
 		String os = System.getProperty("os.name");
 		if (os.indexOf("win") > -1) {
-			path = "C:\\WINDOWS\\Temp";
+			path = "C:\\WINDOWS\\Temp\\";
 		}
 		
 		if (isThere(fileUploadChooserXpath)) {
@@ -684,8 +684,8 @@ public class Icefaces3PortletTest {
 			browser.findElement(By.xpath("//input[@type='submit' and @value='Add Attachment']")).click();
 			Thread.sleep(500);
 		}
-		logger.log(Level.INFO, "entering in "+path+"/liferay-jsf-jersey.png for fileUploadChooser ...");
-		fileUploadChooser.sendKeys(path + "/liferay-jsf-jersey.png");
+		logger.log(Level.INFO, "entering in "+path+"liferay-jsf-jersey.png for fileUploadChooser ...");
+		fileUploadChooser.sendKeys(path + "liferay-jsf-jersey.png");
 		
 		Thread.sleep(50);
 		logger.log(Level.INFO, "submitting the uploaded file ...");

@@ -165,7 +165,7 @@ public class Richfaces4 {
 	private static final String submitFileXpath = "//span[@class='rf-fu-btn-upl']";
 	@FindBy(xpath = submitFileXpath)
 	private WebElement submitFile;
-	private static final String uploadedFileXpath = "//td[contains(text(),'kitten')]";
+	private static final String uploadedFileXpath = "//td[contains(text(),'jersey')]";
 	@FindBy(xpath = uploadedFileXpath)
 	private WebElement uploadedFile;
 	
