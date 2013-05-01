@@ -11,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>liferay-faces-test-integration-demos-bridge-jsf2-events</artifactId>
+	<artifactId>test-jsf2-events</artifactId>
 	<packaging>jar</packaging>
 	<name>jsf2-events integration tests</name>
 	

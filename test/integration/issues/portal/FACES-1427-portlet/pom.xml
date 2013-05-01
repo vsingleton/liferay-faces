@@ -11,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>liferay-faces-test-integration-issues-portal-FACES-1427-portlet</artifactId>
+	<artifactId>test-FACES-1427-portlet</artifactId>
 	<name>FACES-1427 integration tests</name>
 
 </project>

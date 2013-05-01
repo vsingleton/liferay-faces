@@ -11,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>liferay-faces-test-integration-issues-bridge-FACES-1478-portlet</artifactId>
+	<artifactId>test-FACES-1478-portlet</artifactId>
 	<packaging>jar</packaging>
 	<name>FACES-1478-portlet integration tests</name>
 	

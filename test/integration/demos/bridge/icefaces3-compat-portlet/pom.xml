@@ -11,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>liferay-faces-test-integration-demos-bridge-icefaces3-compat-portlet</artifactId>
+	<artifactId>test-icefaces3-compat-portlet</artifactId>
 	<packaging>jar</packaging>
 	<name>icefaces3-compat-portlet integration tests</name>
 	
