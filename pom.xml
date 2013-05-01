@@ -98,13 +98,13 @@
 		<tck.version>jsr329-1.0.1-liferay</tck.version>
 
       <!-- for demo and issue integration testing -->
-      <test.junit.version>4.10</test.junit.version>
-      <test.selenium.version>2.31.0</test.selenium.version>
-      <test.selenium.server.version>2.31.0</test.selenium.server.version>
-      <test.surefire.version>2.12</test.surefire.version>
-      <test.arquillian.version>1.0.3.Final</test.arquillian.version>
-      <test.arquillian.graphene.version>2.0.0.Alpha3</test.arquillian.graphene.version>
-      <test.arquillian.drone.version>1.1.1.Final</test.arquillian.drone.version>
+      <junit.version>4.10</junit.version>
+      <selenium.version>2.31.0</selenium.version>
+      <selenium.server.version>2.31.0</selenium.server.version>
+      <surefire.version>2.12</surefire.version>
+      <arquillian.version>1.0.3.Final</arquillian.version>
+      <arquillian.graphene.version>2.0.0.Alpha3</arquillian.graphene.version>
+      <arquillian.drone.version>1.1.1.Final</arquillian.drone.version>
 
    </properties>
 
@@ -174,13 +174,13 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<!-- <version>2.4.3</version> -->
-					<version>${test.surefire.version}</version>
+					<version>${surefire.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-report-plugin</artifactId>
-					<version>2.4.3</version>
+					<!-- <version>2.4.3</version> -->
+					<version>${surefire.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.scm</groupId>
@@ -214,7 +214,6 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>selenium-maven-plugin</artifactId>
-					<!-- <version>2.3</version> -->
 					<version>${selenium.maven.plugin.version}</version>
 				</plugin>
 				<plugin>
@@ -562,7 +561,7 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<!-- <version>4.7</version> -->
-            <version>${test.junit.version}</version>
+            <version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -651,14 +650,14 @@
          <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>${test.arquillian.version}</version>
+                <version>${arquillian.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.graphene</groupId>
                 <artifactId>graphene-webdriver</artifactId>
-                <version>${test.arquillian.graphene.version}</version>
+                <version>${arquillian.graphene.version}</version>
                 <scope>test</scope>
                 <type>pom</type>
             </dependency>
@@ -667,37 +666,37 @@
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-api</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-configuration</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-impl</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-spi</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-webdriver</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-webdriver-depchain</artifactId>
-                <version>${test.arquillian.drone.version}</version>
+                <version>${arquillian.drone.version}</version>
                 <scope>test</scope>
             </dependency>
             
@@ -721,66 +720,66 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>${test.junit.version}</version>
+                <version>${junit.version}</version>
             </dependency>
             
             <!-- Selenium dependecies -->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
-                <version>${test.selenium.server.version}</version>
+                <version>${selenium.server.version}</version>
             </dependency> 
 
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-api</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-support</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-android-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-chrome-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-firefox-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-htmlunit-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-ie-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-iphone-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-remote-driver</artifactId>
-                <version>${test.selenium.version}</version>
+                <version>${selenium.version}</version>
             </dependency>
             <!-- ending testing dependencies -->
 
