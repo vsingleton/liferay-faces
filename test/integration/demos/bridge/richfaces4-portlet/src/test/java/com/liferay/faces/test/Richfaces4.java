@@ -13,8 +13,6 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Logger;
-
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 
 import org.openqa.selenium.WebDriver;
@@ -99,7 +97,7 @@ public class Richfaces4 {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath =
+	protected static final String dateValidationXpath =
 		"//span[contains(@id,':dateOfBirthField')]/span/span/span/span[contains(@id,':dateOfBirth')]/span";
 
 	// @ArquillianResource
