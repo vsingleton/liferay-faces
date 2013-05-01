@@ -15,11 +15,4 @@
 	<packaging>jar</packaging>
 	<name>jsf2-ipc-pub-render-params-portlet integration tests</name>
 
-	<properties>
-		<dependency.unpack.skip>false</dependency.unpack.skip>
-	</properties>
-
-	<dependencies>
-	</dependencies>
-
 </project>
