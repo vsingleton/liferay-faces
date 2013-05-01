@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import java.util.logging.Logger;
 
+import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 // import java.net.URL;
@@ -25,6 +26,8 @@ import org.openqa.selenium.WebElement;
  */
 public class Jsf2Cdi {
 
+	protected static final Logger logger = Logger.getLogger(Jsf2Cdi.class.getName());
+	
 	// elements for logging in
 	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
 	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";

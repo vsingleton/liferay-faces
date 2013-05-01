@@ -38,7 +38,7 @@ import org.openqa.selenium.interactions.Actions;
 @RunWith(Arquillian.class)
 public class JobPortletTest {
 
-	private static final Logger logger = Logger.getLogger(JobPortletTest.class.getName());
+	protected final static Logger logger = Logger.getLogger(JobPortletTest.class.getName());
 
 	// elements for logging in
 	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";

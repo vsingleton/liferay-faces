@@ -13,6 +13,8 @@
  */
 package com.liferay.faces.test;
 
+import java.util.logging.Logger;
+
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +24,8 @@ import org.openqa.selenium.WebElement;
  */
 public class Primefaces3 {
 
+	protected static final Logger logger = Logger.getLogger(Primefaces3.class.getName());
+	
 	// elements for logging in
 	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
 	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";

@@ -13,42 +13,12 @@
  */
 package com.liferay.faces.test;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-
 // import java.net.URL;
 import java.util.logging.Logger;
 
-import org.apache.commons.io.FileUtils;
-
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
-import org.jboss.arquillian.test.api.ArquillianResource;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import org.junit.runner.RunWith;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 
 /**
@@ -56,7 +26,7 @@ import org.openqa.selenium.interactions.Actions;
  */
 public class Jsf2Jsp {
 
-	private static final Logger logger = Logger.getLogger(Jsf2Jsp.class.getName());
+	protected static final Logger logger = Logger.getLogger(Jsf2Jsp.class.getName());
 
 	// elements for logging in
 	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
@@ -80,34 +50,28 @@ public class Jsf2Jsp {
 	private static final String logoXpath = "//img[contains(@src,'liferay-logo.png')]";
 
 	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-	private static final String firstNameFieldErrorXpath =
-		"//input[contains(@id,':firstName')]/following-sibling::*[1]";
+	private static final String firstNameFieldErrorXpath = "//input[contains(@id,':firstName')]/following-sibling::*[1]";
 
 	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
 	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName')]/following-sibling::*[1]";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-	private static final String emailAddressFieldErrorXpath =
-		"//input[contains(@id,':emailAddress')]/following-sibling::*[1]";
+	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress')]/following-sibling::*[1]";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
-	private static final String phoneNumberFieldErrorXpath =
-		"//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
+	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth')]";
-	private static final String dateOfBirthFieldErrorXpath =
-		"//input[contains(@id,':dateOfBirth')]/following-sibling::*[1]";
+	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth')]/following-sibling::*[1]";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city')]";
 	private static final String cityFieldErrorXpath = "//input[contains(@id,':city')]/following-sibling::*[1]";
 
 	private static final String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-	private static final String provinceIdFieldErrorXpath =
-		"//select[contains(@id,':provinceId')]/following-sibling::*[1]";
+	private static final String provinceIdFieldErrorXpath = "//select[contains(@id,':provinceId')]/following-sibling::*[1]";
 
 	private static final String postalCodeFieldXpath = "//input[contains(@id,':postalCode')]";
-	private static final String postalCodeFieldErrorXpath =
-		"//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
+	private static final String postalCodeFieldErrorXpath = "//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
 
 	private static final String postalCodeToolTipXpath = "//img[contains(@title,'Type any of these ZIP codes')]";
 
@@ -116,8 +80,7 @@ public class Jsf2Jsp {
 	private static final String commentsXpath = "//textarea[contains(@id,':comments')]";
 
 	private static final String fileUploadChooserXpath = "//input[@type='file']";
-	private static final String submitFileXpath =
-		"//form[@method='post' and @enctype='multipart/form-data']/input[@type='submit' and @value='Submit']";
+	private static final String submitFileXpath = "//form[@method='post' and @enctype='multipart/form-data']/input[@type='submit' and @value='Submit']";
 	private static final String uploadedFileXpath = "//tr[@class='portlet-section-body results-row']/td[2]";
 
 	private static final String submitButtonXpath = "//input[@type='submit' and @value='Submit']";
@@ -131,10 +94,8 @@ public class Jsf2Jsp {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
+	protected static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/group/bridge-demos/jsf2-jsp";
 
