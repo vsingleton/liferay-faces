@@ -1,42 +1,62 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 package com.liferay.faces.test;
+
+import java.util.logging.Level;
+//import java.net.URL;
+import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+
 //import org.jboss.arquillian.graphene.*;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
-//import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-
+/**
+ * @author  Liferay Faces Team
+ */
 @RunWith(Arquillian.class)
 public class Jsf2LoginPortletTest {
 
 	// private static final Logger logger;
-	private final static Logger logger = Logger.getLogger(Jsf2LoginPortletTest.class
-			.getName());
-	
+	private static final Logger logger = Logger.getLogger(Jsf2LoginPortletTest.class.getName());
+
 	// //*[@id="portlet_1_WAR_jsf2loginportlet"]/header/h1/span[2]
 	// @FindBy(xpath = "//*[@id='portlet_1_WAR_jsf2loginportlet']/header/h1/span[2]")
 	@FindBy(xpath = "//section[@id='portlet_1_WAR_jsf2loginportlet']/header/h1/span[2]")
 	private WebElement portletDisplayName;
-	
+
 	// //*[@id="A2677:j_idt3"]/ul/li
 	// Authentication failed. Please try again.
 	// //*[@id="A2677:j_idt4"]/ul/li
@@ -71,7 +91,7 @@ public class Jsf2LoginPortletTest {
 
 	// //*[@id="A2677"]
 	// <div class="portlet-body" id="aui_3_4_0_1_490">
-	//   <div id="A2677" class="liferay-faces-bridge-body">You are signed in as Test Test.</div> </div>
+	// <div id="A2677" class="liferay-faces-bridge-body">You are signed in as Test Test.</div> </div>
 	// //section[@id='portlet_1_WAR_jsf2loginportlet']
 	// //div[contains(text(),'You are signed in as')]
 	// @FindBy(xpath = "//*[@id='A2677']")
@@ -90,6 +110,7 @@ public class Jsf2LoginPortletTest {
 	@Before
 	public void getNewSession() {
 		browser.manage().deleteAllCookies();
+
 		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 	}
@@ -104,13 +125,13 @@ public class Jsf2LoginPortletTest {
 		// String url = "http://localhost:8080/group/bridge-demos/jsf2";
 		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 		logger.log(Level.INFO, "url = " + url);
-		
+
 		browser.get(url);
-		
+
 		logger.log(Level.INFO, "portletDisplayName.getText() = " + portletDisplayName.getText());
 		assertTrue("portletDisplayName.isDisplayed()", portletDisplayName.isDisplayed());
 		assertTrue("portlet is called JSF2 Sign-In", portletDisplayName.getText().contains("JSF2 Sign-In"));
-		
+
 		logger.log(Level.INFO, "emailField.isDisplayed() = " + emailField.isDisplayed());
 		assertTrue("emailField.isDisplayed()", emailField.isDisplayed());
 		logger.log(Level.INFO, "passwordField.isDisplayed() = " + passwordField.isDisplayed());
@@ -131,16 +152,13 @@ public class Jsf2LoginPortletTest {
 
 		// wait until the submit button is displayed
 		logger.log(Level.INFO, "starting to wait ...");
-		// waitAjax(browser);
-		// Thread.sleep(3000);
-		// Graphene.waitModel(browser).until(Graphene.element(messageError).isPresent()).wait(5);
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
-		
-		logger.log(Level.INFO,
-				"messageError.getText() = " + messageError.getText());
+		// waitAjax(browser); Thread.sleep(3000);
+		// Graphene.waitModel(browser).until(Graphene.element(messageError).isPresent()).wait(5); logger.log(Level.INFO,
+		// "browser.getPageSource() = " + browser.getPageSource());
+
+		logger.log(Level.INFO, "messageError.getText() = " + messageError.getText());
 		assertTrue("messageError is displayed", messageError.isDisplayed());
-		assertTrue("Authentication failed",
-				messageError.getText().contains("Authentication failed"));
+		assertTrue("Authentication failed", messageError.getText().contains("Authentication failed"));
 
 	}
 
@@ -166,18 +184,16 @@ public class Jsf2LoginPortletTest {
 		passwordField.clear();
 		logger.log(Level.INFO, "passwordField.sendKeys ...");
 		passwordField.sendKeys("test");
-		
+
 		logger.log(Level.INFO, "signInButton.click() ...");
 		signInButton.click();
 		logger.log(Level.INFO, "starting to wait ...");
 		// Thread.sleep(3000);
 		// waitModel(browser);
 
-		logger.log(Level.INFO,
-				"portletBody.getText() = " + portletBody.getText());
+		logger.log(Level.INFO, "portletBody.getText() = " + portletBody.getText());
 		assertTrue("portletBody is displayed", portletBody.isDisplayed());
-		assertTrue("You are signed in",
-				portletBody.getText().contains("You are signed in"));
+		assertTrue("You are signed in", portletBody.getText().contains("You are signed in"));
 	}
 
 }
