@@ -14,23 +14,18 @@
 package com.liferay.faces.test;
 
 import java.util.logging.Level;
+
 //import java.net.URL;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 
 //import org.jboss.arquillian.graphene.*;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.arquillian.test.api.ArquillianResource;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -38,7 +33,6 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

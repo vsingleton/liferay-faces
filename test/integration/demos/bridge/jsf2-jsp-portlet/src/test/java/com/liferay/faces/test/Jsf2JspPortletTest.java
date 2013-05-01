@@ -16,6 +16,7 @@ package com.liferay.faces.test;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -811,7 +812,7 @@ public class Jsf2JspPortletTest {
 		logger.log(Level.INFO, "# of commentsTextAreas = " + commentsTextAreas);
 
 		if (commentsTextAreas == 0) { // if comments were not previously exercised, then we may need to show the
-                                      // comments text area.
+									  // comments text area.
 			showCommentsLink.click();
 			Thread.sleep(500);
 			commentsTextAreas = browser.findElements(By.xpath("//textarea[contains(@id,':comments')]")).size();
