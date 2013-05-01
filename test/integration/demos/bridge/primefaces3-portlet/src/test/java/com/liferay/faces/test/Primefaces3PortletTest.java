@@ -260,8 +260,6 @@ public class Primefaces3PortletTest {
 		assertTrue("menuButton.isDisplayed()", menuButton.isDisplayed());
 		assertFalse("menuPreferences is NOT displayed()", menuPreferences.isDisplayed());
 
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
-
 		if (isThere(logoXpath)) {
 			assertTrue("logo.isDisplayed()", logo.isDisplayed());
 		}

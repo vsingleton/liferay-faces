@@ -15,7 +15,6 @@ package com.liferay.faces.test;
 
 import java.util.logging.Level;
 
-// import java.net.URL;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;

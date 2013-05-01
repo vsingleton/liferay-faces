@@ -17,8 +17,6 @@ import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-// import java.net.URL;
-
 
 /**
  * @author  Liferay Faces Team
@@ -47,36 +45,28 @@ public class Icefaces3 {
 	private static final String logoXpath = "//img[contains(@src,'liferay-logo.png')]";
 
 	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName_input')]";
-	private static final String firstNameFieldErrorXpath =
-		"//input[contains(@id,':firstName_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String firstNameFieldErrorXpath = "//input[contains(@id,':firstName_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName_input')]";
-	private static final String lastNameFieldErrorXpath =
-		"//input[contains(@id,':lastName_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress_input')]";
-	private static final String emailAddressFieldErrorXpath =
-		"//input[contains(@id,':emailAddress_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber_input')]";
-	private static final String phoneNumberFieldErrorXpath =
-		"//input[contains(@id,':phoneNumber_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth_input')]";
-	private static final String dateOfBirthFieldErrorXpath =
-		"//input[contains(@id,':dateOfBirth_input')]/../following-sibling::*[1]/child::node()";
+	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth_input')]/../following-sibling::*[1]/child::node()";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city_input')]";
-	private static final String cityFieldErrorXpath =
-		"//input[contains(@id,':city_input')]/../../following-sibling::*[1]";
+	private static final String cityFieldErrorXpath = "//input[contains(@id,':city_input')]/../../following-sibling::*[1]";
 
 	private static final String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-	private static final String provinceIdFieldErrorXpath =
-		"//select[contains(@id,':provinceId')]/following-sibling::*[1]";
+	private static final String provinceIdFieldErrorXpath = "//select[contains(@id,':provinceId')]/following-sibling::*[1]";
 
 	private static final String postalCodeFieldXpath = "//input[contains(@id,':postalCode_input')]";
-	private static final String postalCodeFieldErrorXpath =
-		"//input[contains(@id,':postalCode_input')]/../../following-sibling::*[1]/following-sibling::*[1]";
+	private static final String postalCodeFieldErrorXpath = "//input[contains(@id,':postalCode_input')]/../../following-sibling::*[1]/following-sibling::*[1]";
 
 	private static final String postalCodeToolTipXpath = "//img[contains(@title,'Type any of these ZIP codes')]";
 
@@ -99,11 +89,8 @@ public class Icefaces3 {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	protected static final String dateValidationXpath =
-		"//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
+	protected static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/group/bridge-demos/ice3";
 

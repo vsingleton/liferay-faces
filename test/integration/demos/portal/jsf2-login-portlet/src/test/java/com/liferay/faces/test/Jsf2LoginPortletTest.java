@@ -43,60 +43,26 @@ import org.openqa.selenium.WebElement;
 @RunWith(Arquillian.class)
 public class Jsf2LoginPortletTest {
 
-	// private static final Logger logger;
 	private static final Logger logger = Logger.getLogger(Jsf2LoginPortletTest.class.getName());
 
-	// //*[@id="portlet_1_WAR_jsf2loginportlet"]/header/h1/span[2]
-	// @FindBy(xpath = "//*[@id='portlet_1_WAR_jsf2loginportlet']/header/h1/span[2]")
 	@FindBy(xpath = "//section[@id='portlet_1_WAR_jsf2loginportlet']/header/h1/span[2]")
 	private WebElement portletDisplayName;
 
-	// //*[@id="A2677:j_idt3"]/ul/li
-	// Authentication failed. Please try again.
-	// //*[@id="A2677:j_idt4"]/ul/li
-	// //ul/li[@class="portlet-msg-error"]
-	// Authentication failed. Please try again.
-	// //*[@id="A2677:j_idt4"]/ul/li
-	// //form[@id='A2677:j_idt4']/ul/li
-	// //*[@id="A2677"]
-	// //*[@id="A2677:j_idt4"]/ul/li
-	// @FindBy(xpath = "//form[@id='A2677:j_idt4']/ul/li")
 	@FindBy(xpath = "//form[@method='post']/ul/li")
 	private WebElement messageError;
 
-	// @FindBy(id = "_58_login")
-	// //*[@id="A2677:j_idt6:j_idt8:j_idt9:handle"]
-	// //input[contains(@id,'buttonTargetNav2')]
 	@FindBy(xpath = "//input[contains(@id,':handle')]")
 	private WebElement emailField;
 
-	// @FindBy(id = "_58_password")
-	// //*[@id="A2677:j_idt6:j_idt8:j_idt9:password"]
 	@FindBy(xpath = "//input[contains(@id,':password')]")
 	private WebElement passwordField;
 
-	// @FindBy(id = "j_login")
-	// //*[@id="A2677:j_idt6:j_idt8"]/div/input
-	// //*[@id="A2677:j_idt4:j_idt6"]/div/input
-	// <input type="submit" name="A2677:j_idt4:j_idt6:j_idt9" value="Sign In">
-	// //input[@type='submit' and @value='Sign In']
 	@FindBy(xpath = "//input[@type='submit' and @value='Sign In']")
 	private WebElement signInButton;
 
-	// //*[@id="A2677"]
-	// <div class="portlet-body" id="aui_3_4_0_1_490">
-	// <div id="A2677" class="liferay-faces-bridge-body">You are signed in as Test Test.</div> </div>
-	// //section[@id='portlet_1_WAR_jsf2loginportlet']
-	// //div[contains(text(),'You are signed in as')]
-	// @FindBy(xpath = "//*[@id='A2677']")
 	@FindBy(xpath = "//div[contains(text(),'You are signed in as')]")
 	private WebElement portletBody;
 
-	// By id = By.id("button");
-	// WebElement element = driver.findElement(id);
-
-	// @ArquillianResource
-	// URL portalURL;
 
 	@Drone
 	WebDriver browser;
@@ -104,8 +70,6 @@ public class Jsf2LoginPortletTest {
 	@Before
 	public void getNewSession() {
 		browser.manage().deleteAllCookies();
-
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 	}
 
@@ -114,9 +78,6 @@ public class Jsf2LoginPortletTest {
 	@InSequence(1)
 	public void failToSignIn() throws Exception {
 
-		// String url =
-		// "http://localhost:8080/group/bridge-demos/jsf2?js_fast_load=0";
-		// String url = "http://localhost:8080/group/bridge-demos/jsf2";
 		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 		logger.log(Level.INFO, "url = " + url);
 
@@ -144,11 +105,7 @@ public class Jsf2LoginPortletTest {
 		logger.log(Level.INFO, "signInButton.click() ...");
 		signInButton.click();
 
-		// wait until the submit button is displayed
 		logger.log(Level.INFO, "starting to wait ...");
-		// waitAjax(browser); Thread.sleep(3000);
-		// Graphene.waitModel(browser).until(Graphene.element(messageError).isPresent()).wait(5); logger.log(Level.INFO,
-		// "browser.getPageSource() = " + browser.getPageSource());
 
 		logger.log(Level.INFO, "messageError.getText() = " + messageError.getText());
 		assertTrue("messageError is displayed", messageError.isDisplayed());
@@ -182,8 +139,6 @@ public class Jsf2LoginPortletTest {
 		logger.log(Level.INFO, "signInButton.click() ...");
 		signInButton.click();
 		logger.log(Level.INFO, "starting to wait ...");
-		// Thread.sleep(3000);
-		// waitModel(browser);
 
 		logger.log(Level.INFO, "portletBody.getText() = " + portletBody.getText());
 		assertTrue("portletBody is displayed", portletBody.isDisplayed());

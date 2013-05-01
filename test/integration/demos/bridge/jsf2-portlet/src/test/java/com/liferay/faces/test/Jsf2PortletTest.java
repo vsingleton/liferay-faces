@@ -13,8 +13,10 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,15 +25,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -215,14 +210,6 @@ public class Jsf2PortletTest {
 	private WebElement bridgeVersion;
 	int dateValidationXpathModifier = 1;
 
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
-
 	public void signIn() throws Exception {
 
 		// Shut its dirty mouth
@@ -240,7 +227,6 @@ public class Jsf2PortletTest {
 		logger.log(Level.INFO,
 			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
 		logger.log(Level.INFO, signedInText.getText());
-		// assertTrue("You are signed in", signedInText.getText().contains("You are signed in"));
 
 	}
 
@@ -259,8 +245,6 @@ public class Jsf2PortletTest {
 		assertTrue("portletDisplayName.isDisplayed()", portletDisplayName.isDisplayed());
 		assertTrue("menuButton.isDisplayed()", menuButton.isDisplayed());
 		assertFalse("menuPreferences is NOT displayed()", menuPreferences.isDisplayed());
-
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 
 		if (isThere(logoXpath)) {
 			assertTrue("logo.isDisplayed()", logo.isDisplayed());

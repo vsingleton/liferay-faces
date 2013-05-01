@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,18 +24,11 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 
 /**
  * @author  Liferay Faces Team
@@ -100,8 +94,6 @@ public class Jsf2EventsTest {
 	// <input type="submit" name="A8622:f1:j_idt28" value="Submit" id="aui_3_4_0_1_2331">
 	private static final String submitXpath = "//input[@type='submit' and @value='Submit']";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/jsf2-events";
 
@@ -146,17 +138,8 @@ public class Jsf2EventsTest {
 	@FindBy(xpath = submitXpath)
 	private WebElement submit;
 
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
-
 	public void signIn() throws Exception {
 
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
@@ -171,7 +154,6 @@ public class Jsf2EventsTest {
 		logger.log(Level.INFO,
 			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
 		logger.log(Level.INFO, signedInText.getText());
-		// assertTrue("You are signed in", signedInText.getText().contains("You are signed in"));
 
 	}
 
@@ -206,8 +188,6 @@ public class Jsf2EventsTest {
 
 		logger.log(Level.INFO, "lizsFirstName.getText() = " + lizsFirstName.getText());
 		logger.log(Level.INFO, "lizsLastName.getText() = " + lizsLastName.getText());
-
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 
 	}
 

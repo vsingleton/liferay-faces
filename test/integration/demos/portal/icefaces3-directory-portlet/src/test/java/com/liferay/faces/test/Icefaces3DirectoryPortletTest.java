@@ -91,8 +91,6 @@ public class Icefaces3DirectoryPortletTest {
 		"//tr[contains(@class, 'iceDatTblRow') and contains(@id, ':users:')]/td[contains(@class, 'iceDatTblCol1')]/span[contains(text(), 'Test')]";
 	private static final String testUserEmailAddressCellXpath = "//a[@href='mailto:test@liferay.com']";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/portal-demos/ice3-dir";
 
@@ -145,14 +143,8 @@ public class Icefaces3DirectoryPortletTest {
 	@FindBy(xpath = testUserEmailAddressCellXpath)
 	private WebElement testUserEmailAddressCell;
 
-	@Before
-	public void getNewSession() {
-
-	}
-
 	public void signIn() throws Exception {
 
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");

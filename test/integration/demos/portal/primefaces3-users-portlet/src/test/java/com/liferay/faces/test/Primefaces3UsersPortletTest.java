@@ -13,6 +13,9 @@
  */
 package com.liferay.faces.test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,15 +24,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -189,8 +185,6 @@ public class Primefaces3UsersPortletTest {
 
 	private static final String JERSEY_FILE = "liferay-jsf-jersey.png";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url =
 		"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefaces3usersportlet&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view";
@@ -340,14 +334,8 @@ public class Primefaces3UsersPortletTest {
 	@FindBy(xpath = changedUserJobTitleCellXpath)
 	private WebElement changedUserJobTitleCell;
 
-	@Before
-	public void hey() {
-
-	}
-
 	public void signIn() throws Exception {
-
-		// Shut its dirty mouth
+		
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");

@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,14 +24,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -65,14 +60,6 @@ public class FACES1478PortletTest {
 	@FindBy(xpath = secondLinkXpath)
 	private WebElement secondLink;
 
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
-
 	@Test
 	@RunAsClient
 	@InSequence(1000)
@@ -99,8 +86,6 @@ public class FACES1478PortletTest {
 		assertTrue("firstParameter is in the url", firstParameter > -1);
 		assertTrue("secondParameter is in the url", secondParameter > -1);
 		assertTrue("firstParameter occurs before the secondParameter", firstParameter < secondParameter);
-
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 
 	}
 

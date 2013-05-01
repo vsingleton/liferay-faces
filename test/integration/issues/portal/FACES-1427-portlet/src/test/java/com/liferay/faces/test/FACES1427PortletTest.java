@@ -59,26 +59,13 @@ public class FACES1427PortletTest {
 	// <span id="A2399:f1:_t8:0:_t11">liferay-jsf-jersey.png</span>
 	private static final String attachmentXpath = "//span[contains(text(),'jersey')]";
 
-	// <textarea cols="100" id="A2399:f1:comments1:inputText" name="A2399:f1:comments1:inputText"
-	// class="focus">comments1-initial-value</textarea>
 	private static final String textarea1Xpath = "//textarea[contains(@id,':comments1:inputText')]";
 
 	// <img alt="Bold" buttonid="b" src="http://localhost:8080/html/themes/classic/images/message_boards/bold.png">
 	private static final String bold1Xpath = "//img[@alt='Bold' and @buttonid='b' and contains(@src, 'bold.png')]";
 
-	// <td id="cke_contents__1_WAR_FACES1427portlet_A2399:f1:comments2" class="cke_contents" style="height:265px"
-	// role="presentation"><iframe style="width:100%;height:100%" frameborder="0" title="Rich text editor,
-	// _1_WAR_FACES1427portlet_A2399:f1:comments2, press ALT 0 for help." src="" tabindex="-1"
-	// allowtransparency="true"></iframe></td> <iframe style="width:100%;height:100%" frameborder="0" title="Rich text
-	// editor, _1_WAR_FACES1427portlet_A2399:f1:comments2, press ALT 0 for help." src="" tabindex="-1"
-	// allowtransparency="true"></iframe>
 	private static final String iframe1Xpath = "//td[contains(@id,':comments2')]/iframe";
 
-	// <a id="cke_7" class="cke_off cke_button_bold" "="" href="javascript:void('Bold')" title="Bold" tabindex="-1"
-	// hidefocus="true" role="button" aria-labelledby="cke_7_label" onkeydown="return CKEDITOR.tools.callFunction(0, 0,
-	// event);" onfocus="return CKEDITOR.tools.callFunction(1, 0, event);" onclick="CKEDITOR.tools.callFunction(4,
-	// this); return false;"><span class="cke_icon">&nbsp;</span><span id="cke_7_label"
-	// class="cke_label">Bold</span></a>
 	private static final String bold2Xpath = "//a[contains(@class, 'cke_button_bold')]";
 
 	// <input id="A2399:f1:_t25" name="A2399:f1:_t25" type="submit" value="Submit">
@@ -292,37 +279,6 @@ public class FACES1427PortletTest {
 
 		// select the word 'subsequent' ... easier said than done
 		logger.log(Level.INFO, "textarea1.getAttribute('id') = '" + textarea1.getAttribute("id") + "'");
-
-//      This executeScript method call below simply selects all of the text textarea1 ... not what we need.
-//      ((JavascriptExecutor) browser).executeScript(
-//          "document.getElementById(\"" + textarea1.getAttribute("id") + "\").select();"
-//      );
-
-//      This executeScript method call below works, but look at it.
-//      It is too ugly, so I decided to replace it with the SelextText interface below
-//
-//      ((JavascriptExecutor) browser).executeScript(
-//          "function selectText(field, start, end) { " +
-//              "if ( field.createTextRange ) { " +
-//                  "var selRange = field.createTextRange(); " +
-//                  "selRange.collapse(true); " +
-//                  "selRange.moveStart('character', start); " +
-//                  "selRange.moveEnd('character', end); " +
-//                  "selRange.select(); " +
-//                  "field.focus(); " +
-//              "} else if ( field.setSelectionRange ) { " +
-//                  "field.focus(); " +
-//                  "field.setSelectionRange(start, end); " +
-//              "} else if ( typeof field.selectionStart != 'undefined' ) { " +
-//                  "field.selectionStart = start; " +
-//                  "field.selectionEnd = end; " +
-//                  "field.focus(); " +
-//              "} " +
-//          "}; " +
-//          "ta = document.getElementById('" + textarea1.getAttribute("id") + "');" +
-//          "selectText(ta, 10, 20);"
-//      );
-//      Thread.sleep(250);
 
 		SelectText selectText = JSInterfaceFactory.create(SelectText.class);
 

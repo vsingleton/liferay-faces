@@ -343,14 +343,8 @@ public class Icefaces3UsersPortletTest {
 	@FindBy(xpath = changedUserJobTitleCellXpath)
 	private WebElement changedUserJobTitleCell;
 
-	@Before
-	public void hey() {
-
-	}
-
 	public void signIn() throws Exception {
 
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");

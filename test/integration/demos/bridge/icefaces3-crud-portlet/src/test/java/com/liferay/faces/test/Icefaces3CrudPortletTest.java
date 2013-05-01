@@ -106,8 +106,6 @@ public class Icefaces3CrudPortletTest {
 	// Cancel button
 	private static final String cancelButtonXpath = "//input[@type='submit' and @value='Cancel']";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/ice3-crud";
 
@@ -170,13 +168,8 @@ public class Icefaces3CrudPortletTest {
 	@FindBy(xpath = cancelButtonXpath)
 	private WebElement cancelButton;
 
-	@Before
-	public void beforeEachTest() {
-	}
-
 	public void signIn() throws Exception {
 
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");

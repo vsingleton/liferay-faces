@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,14 +24,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -77,8 +72,6 @@ public class FACES257PortletTest {
 
 	private static final String requestedUrlXpath = "//span[contains(@id, ':requestedURL')]";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/web/portal-issues/faces-257";
 
@@ -110,14 +103,6 @@ public class FACES257PortletTest {
 	private WebElement gamma;
 	@FindBy(xpath = requestedUrlXpath)
 	private WebElement requestedUrl;
-
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
 
 	@Test
 	@RunAsClient

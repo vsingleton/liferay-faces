@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,14 +24,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -85,14 +80,6 @@ public class FACES1470PortletTest {
 	@FindBy(xpath = fullPostBackButton2Xpath)
 	private WebElement fullPostBackButton2;
 
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
-
 	@Test
 	@RunAsClient
 	@InSequence(1000)
@@ -110,8 +97,6 @@ public class FACES1470PortletTest {
 		assertTrue("portletDisplayName.isDisplayed()", portletDisplayName.isDisplayed());
 		assertTrue("ajaxButton should be displayed, but it is not", ajaxButton.isDisplayed());
 		assertTrue("fullPostBackButton should be displayed, but it is not", fullPostBackButton.isDisplayed());
-
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 
 	}
 
@@ -149,8 +134,6 @@ public class FACES1470PortletTest {
 		assertTrue("ajaxButton should be displayed, but it is not", ajaxButton.isDisplayed());
 		assertTrue("fullPostBackButton should be displayed, but it is not", fullPostBackButton.isDisplayed());
 
-		// TODO Assert Ajax ?
-
 	}
 
 	@Test
@@ -168,8 +151,6 @@ public class FACES1470PortletTest {
 
 		assertTrue("ajaxButton2 should be displayed, but it is not", ajaxButton2.isDisplayed());
 		assertTrue("fullPostBackButton2 should be displayed, but it is not", fullPostBackButton2.isDisplayed());
-
-		// TODO Assert Ajax ?
 
 	}
 

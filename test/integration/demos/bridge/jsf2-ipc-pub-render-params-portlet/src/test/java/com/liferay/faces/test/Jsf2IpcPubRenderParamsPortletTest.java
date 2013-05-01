@@ -13,8 +13,9 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
+import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
 // import java.net.URL;
 import java.util.logging.Logger;
 
@@ -23,14 +24,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,25 +75,15 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String lastNameXpath = "//input[contains(@id,':lastName')]";
 
-	// <select id="A8622:f1:j_idt14:0:bookingTypeId" name="A8622:f1:j_idt14:0:bookingTypeId" size="1"> <option
-	// value="">-- Select --</option> <option value="1">Airfare</option> <option value="2">Cruise</option> <option
-	// value="3">Hotel</option> <option value="4">Play/Theatre</option> <option value="5" selected="selected">Rental
-	// Car</option> <option value="6">Theme Park</option> <option value="7">Train</option> </select>
 	private static final String bookingTypeIdXpath = "(//select[contains(@id,':bookingTypeId')])[1]";
 
-	// <input id="A8622:f1:j_idt14:0:startDate" type="text" name="A8622:f1:j_idt14:0:startDate" value="04/20/2013"
-	// class="focus">
 	private static final String startDateXpath = "(//input[contains(@id,':startDate')])[1]";
 
-	// <input id="A8622:f1:j_idt14:0:finishDate" type="text" name="A8622:f1:j_idt14:0:finishDate" value="04/27/2013"
-	// class="focus">
 	private static final String finishDateXpath = "(//input[contains(@id,':finishDate')])[1]";
 
 	// <input type="submit" name="A8622:f1:j_idt28" value="Submit" id="aui_3_4_0_1_2331">
 	private static final String submitXpath = "//input[@type='submit' and @value='Submit']";
 
-	// @ArquillianResource
-	// URL portalURL;
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/jsf2-prp";
 
@@ -141,17 +126,8 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 	@FindBy(xpath = submitXpath)
 	private WebElement submit;
 
-	@Before
-	public void beforeEachTest() {
-
-//      browser.manage().deleteAllCookies();
-//      logger.log(Level.INFO, "browser.manage().deleteAllCookies() ...");
-
-	}
-
 	public void signIn() throws Exception {
 
-		// Shut its dirty mouth
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
 		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
@@ -166,7 +142,6 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 		logger.log(Level.INFO,
 			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
 		logger.log(Level.INFO, signedInText.getText());
-		// assertTrue("You are signed in", signedInText.getText().contains("You are signed in"));
 
 	}
 
@@ -201,8 +176,6 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 
 		logger.log(Level.INFO, "lizsFirstName.getText() = " + lizsFirstName.getText());
 		logger.log(Level.INFO, "lizsLastName.getText() = " + lizsLastName.getText());
-
-		// logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 
 	}
 
