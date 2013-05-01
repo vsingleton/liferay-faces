@@ -13,10 +13,7 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Logger;
-
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 // import java.net.URL;
@@ -100,7 +97,7 @@ public class Jsf2 {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
+	protected static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
 
 	// @ArquillianResource
 	// URL portalURL;
