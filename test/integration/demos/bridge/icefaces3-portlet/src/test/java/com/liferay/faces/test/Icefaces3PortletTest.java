@@ -396,7 +396,9 @@ public class Icefaces3PortletTest {
 		datePatternField.sendKeys("MM/dd/yy");
 		preferencesSubmitButton.click();
 
-		// Yikes ... we need some more consistency here
+		// TODO after clicking the preferencesSubmitButton all of the job applicant demos need to end up on the same page
+		// Here is a log statement that should give you a clue between the different tester as to which ones are different from others
+		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
 		Thread.sleep(1000);
@@ -425,7 +427,8 @@ public class Icefaces3PortletTest {
 		logger.log(Level.INFO, "resetButton.click() ...");
 		Thread.sleep(1000);
 
-		// Yikes ... we need some more consistency here
+		// TODO after clicking the resetButton all of the job applicant demos need to end up on the same page
+		// Here is a log statement that should give you a clue between the different tester as to which ones are different from others
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
 		Thread.sleep(500);
