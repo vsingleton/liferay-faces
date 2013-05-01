@@ -25,6 +25,7 @@ import org.jboss.arquillian.junit.InSequence;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -34,6 +35,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 /**
@@ -66,29 +69,31 @@ public class Icefaces3UsersPortletTest {
 	private static final String usersAndOrganizationsLinkTestSetupXpath = "//a[text()=' Users and Organizations ']";
 	private static final String searchAllUsersLinkTestSetupXpath = "//a[text()='Search All Users']";
 	private static final String advancedSearchLinkTestSetupXpath = "//a[contains(text(), 'Advanced')]";
-	private static final String selectStatusBeforeXpath = "//select[contains(@id, 'status')]";
-	private static final String optionInactiveBeforeXpath = "//option[text()=' Inactive ']";
-	private static final String johnAdamsBeforeXpath = "//a[text()='john.adams']";
-	private static final String johnAdamsMenuBeforeXpath =
+	private static final String selectStatusTestSetupXpath = "//select[contains(@id, 'status')]";
+	private static final String optionInactiveTestSetupXpath = "//option[text()=' Inactive ']";
+	private static final String johnAdamsTestSetupXpath = "//a[text()='john.adams']";
+	private static final String johnAdamsMenuTestSetupXpath =
 		"//a[contains(@id, 'john-adams_menuButton')]/span[text()='Actions']"; ///child::img[contains(@src, 'activate.png')]";
-	private static final String activateJohnAdamsBeforeXpath = "//a[contains(@id, 'john-adams_menu_activate')]"; ///child::img[contains(@src, 'activate.png')]";
-	private static final String deleteLinkBeforeXpath = "//span[@class='taglib-text' and text()='Delete']";
-	private static final String emailInputBeforeXpath = "//input[contains(@id, 'emailAddress')]";
-	private static final String firstNameInputBeforeXpath = "//input[contains(@id, 'firstName')]";
-	private static final String middleNameInputBeforeXpath = "//input[contains(@id, 'middleName')]";
-	private static final String lastNameInputBeforeXpath = "//input[contains(@id, 'lastName')]";
-	private static final String jobTitleInputBeforeXpath = "//input[contains(@id, 'jobTitle')]";
-	private static final String saveButtonBeforeXpath = "//input[@type='submit' and @value='Save']";
-	private static final String errorMessageBeforeXpath =
+	private static final String activateJohnAdamsTestSetupXpath = "//a[contains(@id, 'john-adams_menu_activate')]"; ///child::img[contains(@src, 'activate.png')]";
+	private static final String deleteLinkTestSetupXpath = "//span[@class='taglib-text' and text()='Delete']";
+	private static final String emailInputTestSetupXpath = "//input[contains(@id, 'emailAddress')]";
+	private static final String firstNameInputTestSetupXpath = "//input[contains(@id, 'firstName')]";
+	private static final String middleNameInputTestSetupXpath = "//input[contains(@id, 'middleName')]";
+	private static final String lastNameInputTestSetupXpath = "//input[contains(@id, 'lastName')]";
+	private static final String jobTitleInputTestSetupXpath = "//input[contains(@id, 'jobTitle')]";
+	private static final String saveButtonTestSetupXpath = "//input[@type='submit' and @value='Save']";
+	private static final String errorMessageTestSetupXpath =
 		"//div[@class='portlet-msg-error' and text()='Your request failed to complete.']";
-	@FindBy(xpath = errorMessageBeforeXpath)
-	private static WebElement errorMessageBefore;
-	private static final String errorPassword1BeforeXpath = "//input[contains(@id, 'password1') and @type='password']";
-	@FindBy(xpath = errorPassword1BeforeXpath)
-	private static WebElement errorPassword1Before;
-	private static final String errorPassword2BeforeXpath = "//input[contains(@id, 'password2') and @type='password']";
-	@FindBy(xpath = errorPassword2BeforeXpath)
-	private static WebElement errorPassword2Before;
+	@FindBy(xpath = errorMessageTestSetupXpath)
+	private static WebElement errorMessageTestSetup;
+	private static final String errorPassword1TestSetupXpath =
+		"//input[contains(@id, 'password1') and @type='password']";
+	@FindBy(xpath = errorPassword1TestSetupXpath)
+	private static WebElement errorPassword1TestSetup;
+	private static final String errorPassword2TestSetupXpath =
+		"//input[contains(@id, 'password2') and @type='password']";
+	@FindBy(xpath = errorPassword2TestSetupXpath)
+	private static WebElement errorPassword2TestSetup;
 
 	// Elements for users' list
 	private static final String screenNameColumnHeaderXpath =
@@ -187,8 +192,8 @@ public class Icefaces3UsersPortletTest {
 	private static final String changedUserEmailAddressCellXpath = "//a[@href='mailto:A@A.com']";
 	private static final String changedUserJobTitleCellXpath = "//span[contains(@id,':jobTitleCell') and text()='Aa']";
 
-	// @ArquillianResource
-	// URL portalURL;
+	private static final String JERSEY_FILE = "liferay-jsf-jersey.png";
+
 	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url =
 		"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_icefaces3usersportlet&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&doAsGroupId=10180&refererPlid=10183";
@@ -221,30 +226,30 @@ public class Icefaces3UsersPortletTest {
 	private WebElement searchAllUsersLinkTestSetup;
 	@FindBy(xpath = advancedSearchLinkTestSetupXpath)
 	private WebElement advancedSearchLinkTestSetup;
-	@FindBy(xpath = selectStatusBeforeXpath)
-	private WebElement selectStatusBefore;
-	@FindBy(xpath = optionInactiveBeforeXpath)
-	private WebElement optionInactiveBefore;
-	@FindBy(xpath = johnAdamsBeforeXpath)
-	private WebElement johnAdamsBefore;
-	@FindBy(xpath = johnAdamsMenuBeforeXpath)
-	private WebElement johnAdamsMenuBefore;
-	@FindBy(xpath = activateJohnAdamsBeforeXpath)
-	private WebElement activateJohnAdamsBefore;
-	@FindBy(xpath = deleteLinkBeforeXpath)
-	private WebElement deleteLinkBefore;
-	@FindBy(xpath = emailInputBeforeXpath)
-	private WebElement emailInputBefore;
-	@FindBy(xpath = firstNameInputBeforeXpath)
-	private WebElement firstNameInputBefore;
-	@FindBy(xpath = middleNameInputBeforeXpath)
-	private WebElement middleNameInputBefore;
-	@FindBy(xpath = lastNameInputBeforeXpath)
-	private WebElement lastNameInputBefore;
-	@FindBy(xpath = jobTitleInputBeforeXpath)
-	private WebElement jobTitleInputBefore;
-	@FindBy(xpath = saveButtonBeforeXpath)
-	private WebElement saveButtonBefore;
+	@FindBy(xpath = selectStatusTestSetupXpath)
+	private WebElement selectStatusTestSetup;
+	@FindBy(xpath = optionInactiveTestSetupXpath)
+	private WebElement optionInactiveTestSetup;
+	@FindBy(xpath = johnAdamsTestSetupXpath)
+	private WebElement johnAdamsTestSetup;
+	@FindBy(xpath = johnAdamsMenuTestSetupXpath)
+	private WebElement johnAdamsMenuTestSetup;
+	@FindBy(xpath = activateJohnAdamsTestSetupXpath)
+	private WebElement activateJohnAdamsTestSetup;
+	@FindBy(xpath = deleteLinkTestSetupXpath)
+	private WebElement deleteLinkTestSetup;
+	@FindBy(xpath = emailInputTestSetupXpath)
+	private WebElement emailInputTestSetup;
+	@FindBy(xpath = firstNameInputTestSetupXpath)
+	private WebElement firstNameInputTestSetup;
+	@FindBy(xpath = middleNameInputTestSetupXpath)
+	private WebElement middleNameInputTestSetup;
+	@FindBy(xpath = lastNameInputTestSetupXpath)
+	private WebElement lastNameInputTestSetup;
+	@FindBy(xpath = jobTitleInputTestSetupXpath)
+	private WebElement jobTitleInputTestSetup;
+	@FindBy(xpath = saveButtonTestSetupXpath)
+	private WebElement saveButtonTestSetup;
 	@FindBy(xpath = screenNameColumnHeaderXpath)
 	private WebElement screenNameColumnHeader;
 	@FindBy(xpath = screenNameColumnSortIconXpath)
@@ -338,6 +343,11 @@ public class Icefaces3UsersPortletTest {
 	@FindBy(xpath = changedUserJobTitleCellXpath)
 	private WebElement changedUserJobTitleCell;
 
+	@Before
+	public void hey() {
+
+	}
+
 	public void signIn() throws Exception {
 
 		// Shut its dirty mouth
@@ -363,53 +373,56 @@ public class Icefaces3UsersPortletTest {
 	@InSequence(0)
 	public void testSetup() throws Exception {
 
+		browser.manage().deleteAllCookies();
 		signIn();
-
 		controlPanelTestSetup.click();
-		Thread.sleep(500);
+		waitForElement(usersAndOrganizationsLinkTestSetupXpath);
 		usersAndOrganizationsLinkTestSetup.click();
-		Thread.sleep(500);
+		waitForElement(searchAllUsersLinkTestSetupXpath);
 		searchAllUsersLinkTestSetup.click();
-		Thread.sleep(500);
+		Thread.sleep(1000);
 
 		if (isThere(advancedSearchLinkTestSetupXpath) && advancedSearchLinkTestSetup.isDisplayed()) {
 			advancedSearchLinkTestSetup.click();
 		}
 
-		Thread.sleep(500);
+		waitForElement(selectStatusTestSetupXpath);
 
-		selectStatusBefore.click();
+		selectStatusTestSetup.click();
 		(new Actions(browser)).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.TAB).perform();
-		selectStatusBefore.submit();
+		selectStatusTestSetup.submit();
 
-		if (isThere(johnAdamsBeforeXpath)) {
-			johnAdamsMenuBefore.click();
-			activateJohnAdamsBefore.click();
+		if (isThere(johnAdamsTestSetupXpath)) {
+			johnAdamsMenuTestSetup.click();
+			activateJohnAdamsTestSetup.click();
 		}
 
 		usersAndOrganizationsLinkTestSetup.click();
-		johnAdamsBefore.click();
+		waitForElement(johnAdamsTestSetupXpath);
+		johnAdamsTestSetup.click();
 
-		if (deleteLinkBefore.isDisplayed()) {
-			deleteLinkBefore.click();
+		waitForElement(emailInputTestSetupXpath);
+
+		if (isThere(deleteLinkTestSetupXpath) && deleteLinkTestSetup.isDisplayed()) {
+			deleteLinkTestSetup.click();
 		}
 
-		emailInputBefore.clear();
-		emailInputBefore.sendKeys("john.adams@liferay.com");
-		firstNameInputBefore.clear();
-		firstNameInputBefore.sendKeys("John");
-		middleNameInputBefore.clear();
-		lastNameInputBefore.clear();
-		lastNameInputBefore.sendKeys("Adams");
-		jobTitleInputBefore.clear();
-		saveButtonBefore.click();
+		emailInputTestSetup.clear();
+		emailInputTestSetup.sendKeys("john.adams@liferay.com");
+		firstNameInputTestSetup.clear();
+		firstNameInputTestSetup.sendKeys("John");
+		middleNameInputTestSetup.clear();
+		lastNameInputTestSetup.clear();
+		lastNameInputTestSetup.sendKeys("Adams");
+		jobTitleInputTestSetup.clear();
+		saveButtonTestSetup.click();
 
-		if (isThere(errorMessageBeforeXpath)) {
-			errorPassword1Before.clear();
-			errorPassword1Before.sendKeys("testtest");
-			errorPassword2Before.clear();
-			errorPassword2Before.sendKeys("testtest");
-			saveButtonBefore.click();
+		if (isThere(errorMessageTestSetupXpath)) {
+			errorPassword1TestSetup.clear();
+			errorPassword1TestSetup.sendKeys("testtest");
+			errorPassword2TestSetup.clear();
+			errorPassword2TestSetup.sendKeys("testtest");
+			saveButtonTestSetup.click();
 		}
 	}
 
@@ -514,7 +527,7 @@ public class Icefaces3UsersPortletTest {
 
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(1000);
+		waitForElement(firstNameFieldXpath);
 
 		logger.log(Level.INFO, "firstNameField.isDisplayed() = " + firstNameField.isDisplayed());
 		assertTrue("The First Name Text Entry Field should be displayed on the page at this point but it is not.",
@@ -567,7 +580,7 @@ public class Icefaces3UsersPortletTest {
 		jobTitleField.clear();
 		submitButton.click();
 
-		Thread.sleep(2000);
+		waitForElement(firstNameFieldErrorXpath);
 
 		logger.log(Level.INFO, "firstNameFieldError.isDisplayed() = " + firstNameFieldError.isDisplayed());
 		assertTrue("The First Name Validation Error should be displayed on the page at this point but it is not.",
@@ -581,8 +594,6 @@ public class Icefaces3UsersPortletTest {
 
 		cancelButton.click();
 
-		Thread.sleep(500);
-
 	}
 
 	@Test
@@ -590,9 +601,10 @@ public class Icefaces3UsersPortletTest {
 	@InSequence(4000)
 	public void screenNameColumnFilter() throws Exception {
 
+		waitForElement(screenNameColumnFilterXpath);
 		screenNameColumnFilter.sendKeys("john.adams");
 
-		Thread.sleep(500);
+		Thread.sleep(1000);
 
 		logger.log(Level.INFO,
 			"johnAdamsUserScreenNameCell.isDisplayed() = " + johnAdamsUserScreenNameCell.isDisplayed());
@@ -624,6 +636,11 @@ public class Icefaces3UsersPortletTest {
 
 		Thread.sleep(1000);
 
+		logger.log(Level.INFO,
+			"isThere(samuelAdamsUserScreenNameCellXpath) = " + isThere(samuelAdamsUserScreenNameCellXpath));
+		assertTrue("The row for Samuel Adams should be displayed now becuase of filtering, but it is not.",
+			isThere(samuelAdamsUserScreenNameCellXpath));
+
 	}
 
 	@Test
@@ -631,16 +648,22 @@ public class Icefaces3UsersPortletTest {
 	@InSequence(6000)
 	public void testImageChosenButNotUploaded() throws Exception {
 
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(500);
+		waitForElement(fileEntryXpath);
 
-		fileEntry.sendKeys("/tmp/liferay-jsf-jersey.png");
+		fileEntry.sendKeys(getPathForJerseyFile());
+
+		logger.log(Level.INFO, "portrait.isDisplayed() = " + portrait.isDisplayed());
+		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
+			portrait.isDisplayed());
+
 		cancelButton.click();
 
-		Thread.sleep(500);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 
 		logger.log(Level.INFO, "screenNameColumnHeader.isDisplayed() = " + screenNameColumnHeader.isDisplayed());
 		assertTrue("The Screen Name Column Header should be displayed on the page at this point but it is not.",
@@ -656,16 +679,21 @@ public class Icefaces3UsersPortletTest {
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(500);
+		waitForElement(fileEntryXpath);
 
 		logger.log(Level.INFO, "portrait.isDisplayed() = " + portrait.isDisplayed());
 		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
 			portrait.isDisplayed());
 
-		fileEntry.sendKeys("/tmp/liferay-jsf-jersey.png");
+		fileEntry.sendKeys(getPathForJerseyFile());
+
+		logger.log(Level.INFO, "portrait.isDisplayed() = " + portrait.isDisplayed());
+		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
+			portrait.isDisplayed());
+
 		submitButton.click();
 
-		Thread.sleep(500);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 
 		logger.log(Level.INFO, "screenNameColumnHeader.isDisplayed() = " + screenNameColumnHeader.isDisplayed());
 		assertTrue("The Screen Name Column Header should be displayed on the page at this point but it is not.",
@@ -681,14 +709,14 @@ public class Icefaces3UsersPortletTest {
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(500);
+		waitForElement(cancelButtonXpath);
 
 		logger.log(Level.INFO, "portrait.isDisplayed() = " + portrait.isDisplayed());
 		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
 			portrait.isDisplayed());
 
 		cancelButton.click();
-		Thread.sleep(500);
+
 	}
 
 	@Test
@@ -696,16 +724,17 @@ public class Icefaces3UsersPortletTest {
 	@InSequence(6000)
 	public void testFileUpload() throws Exception {
 
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(500);
+		waitForElement(fileEntryXpath);
 
-		fileEntry.sendKeys("/tmp/liferay-jsf-jersey.png");
+		fileEntry.sendKeys(getPathForJerseyFile());
 		fileUploadButton.click();
 
-		Thread.sleep(500);
+		waitForElement(changedPortraitXpath);
 
 		logger.log(Level.INFO, "changedPortrait.isDisplayed() = " + changedPortrait.isDisplayed());
 		assertTrue("The Changed User Portrait should be displayed on the page at this point but it is not.",
@@ -713,33 +742,36 @@ public class Icefaces3UsersPortletTest {
 
 		cancelButton.click();
 
-		Thread.sleep(500);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
-		Thread.sleep(500);
+
+		waitForElement(fileEntryXpath);
 
 		logger.log(Level.INFO, "portrait.isDisplayed() = " + portrait.isDisplayed());
 		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
 			portrait.isDisplayed());
 
-		fileEntry.sendKeys("/tmp/liferay-jsf-jersey.png");
+		fileEntry.sendKeys(getPathForJerseyFile());
 		fileUploadButton.click();
 
-		Thread.sleep(500);
+		waitForElement(changedPortraitXpath);
+
 		submitButton.click();
 
-		Thread.sleep(1000);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
+
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
-		Thread.sleep(500);
+
+		waitForElement(changedPortraitXpath);
 
 		logger.log(Level.INFO, "changedPortrait.isDisplayed() = " + changedPortrait.isDisplayed());
 		assertTrue("The Changed User Portrait should be displayed on the page at this point but it is not.",
 			changedPortrait.isDisplayed());
 
-		Thread.sleep(500);
 		cancelButton.click();
 	}
 
@@ -748,13 +780,14 @@ public class Icefaces3UsersPortletTest {
 	@InSequence(7000)
 	public void changeUserAttributes() throws Exception {
 
-		Thread.sleep(500);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(250);
+		waitForElement(firstNameFieldXpath);
 
 		firstNameField.clear();
 		firstNameField.sendKeys("Aa");
@@ -781,7 +814,7 @@ public class Icefaces3UsersPortletTest {
 		assertFalse("The Email Address Validation Error should be displayed on the page at this point but it is not.",
 			isThere(emailAddressFieldErrorXpath));
 
-		Thread.sleep(500);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 
 		logger.log(Level.INFO, "changedUserLastNameCell.isDisplayed() = " + changedUserLastNameCell.isDisplayed());
 		assertTrue(
@@ -805,11 +838,13 @@ public class Icefaces3UsersPortletTest {
 			"The Job Title Cell of the changed user should be displayed on the page as A at this point but it is not.",
 			changedUserJobTitleCell.isDisplayed());
 
+		waitForElement(johnAdamsUserScreenNameCellXpath);
+
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 		Thread.sleep(250);
 		(new Actions(browser)).doubleClick(johnAdamsUserScreenNameCell).perform();
 
-		Thread.sleep(500);
+		waitForElement(firstNameFieldXpath);
 
 		logger.log(Level.INFO, "dropdownInactiveField.isDisplayed() = " + dropdownInactiveField.isDisplayed());
 		assertTrue("The dropdown Inactive Field should be selected now, but it is not.",
@@ -836,7 +871,7 @@ public class Icefaces3UsersPortletTest {
 		assertFalse("The Email Address Validation Error should be displayed on the page at this point but it is not.",
 			isThere(emailAddressFieldErrorXpath));
 
-		Thread.sleep(250);
+		waitForElement(johnAdamsUserScreenNameCellXpath);
 
 		logger.log(Level.INFO,
 			"johnAdamsUserScreenNameCell.isDisplayed() = " + johnAdamsUserScreenNameCell.isDisplayed());
@@ -856,6 +891,23 @@ public class Icefaces3UsersPortletTest {
 		assertTrue(
 			"The Email Address Cell of the John Adams user should be displayed on the page as john.adams@liferay.com at this point but it is not.",
 			johnAdamsUserEmailAddressCell.isDisplayed());
+	}
+
+	public String getPathForJerseyFile() {
+		String path = "/tmp/";
+
+		String os = System.getProperty("os.name");
+
+		if (os.indexOf("win") > -1) {
+			path = "C:\\WINDOWS\\Temp\\";
+		}
+
+		return path + JERSEY_FILE;
+	}
+
+	public void waitForElement(String xpath) {
+		WebDriverWait wait = new WebDriverWait(browser, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.ByXPath.xpath(xpath)));
 	}
 
 	public boolean isThere(String xpath) {
