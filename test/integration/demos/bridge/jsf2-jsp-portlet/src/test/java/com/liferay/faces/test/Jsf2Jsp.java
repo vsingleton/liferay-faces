@@ -16,6 +16,7 @@ package com.liferay.faces.test;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+
 // import java.net.URL;
 import java.util.logging.Logger;
 
