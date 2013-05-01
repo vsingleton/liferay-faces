@@ -97,6 +97,12 @@ while (<TEMPLATE>) {
       $variables{$variable} = 1;
       # print "$variable\n";
    }
+   if (/protected..*Xpath/) {
+      ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
+      $xpath = join " ", @path;
+      $variables{$variable} = 1;
+      # print "$variable\n";
+   }
    if (/\@Test/) {
       $annotation = $lineNumber;
    }
@@ -144,6 +150,12 @@ foreach my $class (@class) {
          $xpaths{$variable} = $xpath;
          # print "$variable $xpath\n";
       }
+      if (/protected..*Xpath/) {
+         ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
+         $xpath = join " ", @path;
+         $xpaths{$variable} = $xpath;
+         # print "$variable $xpath\n";
+      }
       if (/int dateValidationXpathModifier/) {
          $dateValidationXpathModifier = $_;
       }
@@ -160,14 +172,18 @@ foreach my $class (@class) {
       if (/public class/) {
          print "$_\n";
          print OUT "public class $class \{\n";
-      } elsif (/private final static Logger/) {
-         print OUT "	private final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
+      } elsif (/protected final static Logger/) {
+         print "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
+         print OUT "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
       } elsif (/String url =/) {
          print "$url\n";
          print OUT "$url\n";
       } elsif (/private..*Xpath/) {
          ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
          print OUT "	private static final String $variable = $xpaths{$variable}\n";
+      } elsif (/protected..*Xpath/) {
+         ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
+         print OUT "	protected static final String $variable = $xpaths{$variable}\n";
       } elsif (/int dateValidationXpathModifier/) {
          print OUT "$dateValidationXpathModifier\n";
       } elsif (defined $annotations{$lineNumber}) {
