@@ -14,15 +14,10 @@
 package com.liferay.faces.test;
 
 import java.util.logging.Level;
-
-//import java.net.URL;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-
-//import org.jboss.arquillian.graphene.*;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 
@@ -33,15 +28,16 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Jsf2LoginPortletTest {
+public class Jsf2LoginPortletTest extends Tester {
 
 	private static final Logger logger = Logger.getLogger(Jsf2LoginPortletTest.class.getName());
 
@@ -62,10 +58,6 @@ public class Jsf2LoginPortletTest {
 
 	@FindBy(xpath = "//div[contains(text(),'You are signed in as')]")
 	private WebElement portletBody;
-
-
-	@Drone
-	WebDriver browser;
 
 	@Before
 	public void getNewSession() {

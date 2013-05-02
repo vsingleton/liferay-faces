@@ -13,34 +13,32 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-// import java.net.URL;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class FACES1439PortletTest {
-
-	private static final Logger logger = Logger.getLogger(FACES1439PortletTest.class.getName());
+public class FACES1439PortletTest extends Tester {
 
 	// portlet topper and menu elements
 	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
@@ -66,13 +64,8 @@ public class FACES1439PortletTest {
 	private static final String inputThreeXpath =
 		"//span[contains(@id,':comments3Output')]/following-sibling::br[1]/following-sibling::input[1]";
 
-	// @ArquillianResource
-	// URL portalURL;
-	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/web/portal-issues/faces-1439";
 
-	@Drone
-	WebDriver browser;
 	@FindBy(xpath = portletDisplayNameXpath)
 	private WebElement portletDisplayName;
 	@FindBy(xpath = showHideOneXpath)
@@ -256,28 +249,6 @@ public class FACES1439PortletTest {
 		assertTrue("Model bean needs to have been updated via ajax after tabbing-out of field",
 			comments3Output.getText().contains("Hello world 3"));
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

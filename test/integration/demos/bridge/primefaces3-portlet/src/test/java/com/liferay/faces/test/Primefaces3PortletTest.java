@@ -13,38 +13,33 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import com.liferay.faces.test.util.Tester;
+
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Primefaces3PortletTest {
-
-	protected final static Logger logger = Logger.getLogger(Primefaces3PortletTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
+public class Primefaces3PortletTest extends Tester {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
@@ -62,28 +57,34 @@ public class Primefaces3PortletTest {
 	private static final String logoXpath = "//img[contains(@src,'liferay-logo.png')]";
 
 	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-	private static final String firstNameFieldErrorXpath = "//input[contains(@id,':firstName')]/following-sibling::*[1]";
+	private static final String firstNameFieldErrorXpath =
+		"//input[contains(@id,':firstName')]/following-sibling::*[1]";
 
 	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
 	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName')]/following-sibling::*[1]";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress')]/following-sibling::*[1]";
+	private static final String emailAddressFieldErrorXpath =
+		"//input[contains(@id,':emailAddress')]/following-sibling::*[1]";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
-	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
+	private static final String phoneNumberFieldErrorXpath =
+		"//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth')]";
-	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]";
+	private static final String dateOfBirthFieldErrorXpath =
+		"//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city')]";
 	private static final String cityFieldErrorXpath = "//input[contains(@id,':city')]/following-sibling::*[1]";
 
 	private static final String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-	private static final String provinceIdFieldErrorXpath = "//select[contains(@id,':provinceId')]/following-sibling::*[1]";
+	private static final String provinceIdFieldErrorXpath =
+		"//select[contains(@id,':provinceId')]/following-sibling::*[1]";
 
 	private static final String postalCodeFieldXpath = "//input[contains(@id,':postalCode')]";
-	private static final String postalCodeFieldErrorXpath = "//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
+	private static final String postalCodeFieldErrorXpath =
+		"//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
 
 	private static final String postalCodeToolTipXpath = "//img[contains(@title,'Type any of these ZIP codes')]";
 
@@ -106,21 +107,11 @@ public class Primefaces3PortletTest {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
+	private static final String dateValidationXpath =
+		"//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
 
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/prime3";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
 	@FindBy(xpath = portletDisplayNameXpath)
@@ -198,25 +189,6 @@ public class Primefaces3PortletTest {
 	@FindBy(xpath = bridgeVersionXpath)
 	private WebElement bridgeVersion;
 	int dateValidationXpathModifier = 0;
-
-	public void signIn() throws Exception {
-
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("test@liferay.com");
-		passwordField.clear();
-		passwordField.sendKeys("test");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -396,9 +368,11 @@ public class Primefaces3PortletTest {
 		datePatternField.sendKeys("MM/dd/yy");
 		preferencesSubmitButton.click();
 
-		// TODO after clicking the preferencesSubmitButton all of the job applicant demos need to end up on the same page
-		// Here is a log statement that should give you a clue between the different tester as to which ones are different from others
+		// TODO after clicking the preferencesSubmitButton all of the job applicant demos need to end up on the same
+		// page Here is a log statement that should give you a clue between the different tester as to which ones are
+		// different from others
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
+
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
 		Thread.sleep(1000);
@@ -417,6 +391,7 @@ public class Primefaces3PortletTest {
 			logger.log(Level.INFO, "editPreferencesButton.click() ...");
 		}
 		else {
+			logger.log(Level.INFO, "NO editPreferencesButton isThere, so menuPreferences.click() ...");
 			menuButton.click();
 			Thread.sleep(500);
 			menuPreferences.click();
@@ -427,11 +402,16 @@ public class Primefaces3PortletTest {
 		logger.log(Level.INFO, "resetButton.click() ...");
 		Thread.sleep(1000);
 
-		// TODO after clicking the resetButton all of the job applicant demos need to end up on the same page
-		// Here is a log statement that should give you a clue between the different tester as to which ones are different from others
+		// TODO after clicking the resetButton all of the job applicant demos need to end up on the same page Here is a
+		// log statement that should give you a clue between the different tester as to which ones are different from
+		// others
+		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
+
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
-		Thread.sleep(500);
+
+		waitForElement(dateOfBirthFieldXpath);
+
 		logger.log(Level.INFO, "dateOfBirthField.getAttribute('value') = " + dateOfBirthField.getAttribute("value"));
 		logger.log(Level.INFO,
 			"dateOfBirthField.getAttribute('value').length() = " + dateOfBirthField.getAttribute("value").length());
@@ -682,13 +662,6 @@ public class Primefaces3PortletTest {
 	public void fileUpload() throws Exception {
 
 		boolean uploaded = false;
-		String path = "/tmp/";
-
-		String os = System.getProperty("os.name");
-
-		if (os.indexOf("win") > -1) {
-			path = "C:\\WINDOWS\\Temp\\";
-		}
 
 		if (isThere(fileUploadChooserXpath)) {
 			logger.log(Level.INFO, "isThere(fileUploadChooserXpath) = " + isThere(fileUploadChooserXpath));
@@ -702,8 +675,8 @@ public class Primefaces3PortletTest {
 			Thread.sleep(500);
 		}
 
-		logger.log(Level.INFO, "entering in " + path + "liferay-jsf-jersey.png for fileUploadChooser ...");
-		fileUploadChooser.sendKeys(path + "liferay-jsf-jersey.png");
+		logger.log(Level.INFO, "entering in " + getPathToJerseyFile() + " for fileUploadChooser ...");
+		fileUploadChooser.sendKeys(getPathToJerseyFile());
 
 		Thread.sleep(50);
 		logger.log(Level.INFO, "submitting the uploaded file ...");
@@ -839,28 +812,6 @@ public class Primefaces3PortletTest {
 		assertTrue("The text 'Dear David' should be showing in the portlet after submitting valid data, " +
 			"but it is not", formTag.getText().contains("Dear David"));
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

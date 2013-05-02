@@ -34,6 +34,11 @@
 			<artifactId>graphene-webdriver</artifactId>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>liferay-faces-test-util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

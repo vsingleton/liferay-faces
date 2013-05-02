@@ -13,37 +13,30 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-// import java.net.URL;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Jsf2IpcPubRenderParamsPortletTest {
-
-	private static final Logger logger = Logger.getLogger(Jsf2IpcPubRenderParamsPortletTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
+public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 
 	// portlet topper for customer
 	private static final String customerPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[1]";
@@ -84,19 +77,8 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 	// <input type="submit" name="A8622:f1:j_idt28" value="Submit" id="aui_3_4_0_1_2331">
 	private static final String submitXpath = "//input[@type='submit' and @value='Submit']";
 
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/bridge-demos/jsf2-prp";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = customerPortletDisplayNameXpath)
 	private WebElement customerPortletDisplayName;
 	@FindBy(xpath = briansInputXpath)
@@ -125,25 +107,6 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 	private WebElement finishDate;
 	@FindBy(xpath = submitXpath)
 	private WebElement submit;
-
-	public void signIn() throws Exception {
-
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("test@liferay.com");
-		passwordField.clear();
-		passwordField.sendKeys("test");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -305,28 +268,6 @@ public class Jsf2IpcPubRenderParamsPortletTest {
 		assertTrue("Brian's first finishDate should be '04/20/2099', but it is '" + finishDate.getAttribute("value") +
 			"'", finishDate.getAttribute("value").contains("04/20/2099"));
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

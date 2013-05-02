@@ -13,31 +13,29 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-// import java.net.URL;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class FACES1470PortletTest {
-
-	private static final Logger logger = Logger.getLogger(FACES1470PortletTest.class.getName());
+public class FACES1470PortletTest extends Tester {
 
 	// portlet topper and menu elements
 	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
@@ -60,13 +58,8 @@ public class FACES1470PortletTest {
 	private static final String fullPostBackButton2Xpath =
 		"//input[contains(@value,'Click me to navigate to view1.xhtml via non-Ajax')]";
 
-	// @ArquillianResource
-	// URL portalURL;
-	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/web/bridge-issues/faces-1470";
 
-	@Drone
-	WebDriver browser;
 	@FindBy(xpath = portletDisplayNameXpath)
 	private WebElement portletDisplayName;
 	@FindBy(xpath = formTagXpath)
@@ -170,28 +163,6 @@ public class FACES1470PortletTest {
 		assertTrue("ajaxButton should be displayed, but it is not", ajaxButton.isDisplayed());
 		assertTrue("fullPostBackButton should be displayed, but it is not", fullPostBackButton.isDisplayed());
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

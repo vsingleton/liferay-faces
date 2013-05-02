@@ -15,11 +15,7 @@ package com.liferay.faces.test;
 
 import java.util.logging.Level;
 
-// import java.net.URL;
-import java.util.logging.Logger;
-
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.graphene.javascript.JSInterfaceFactory;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,20 +28,18 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class FACES1427PortletTest {
-
-	private static final Logger logger = Logger.getLogger(FACES1427PortletTest.class.getName());
+public class FACES1427PortletTest extends Tester {
 
 	// portlet topper and menu elements
 	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
@@ -77,13 +71,8 @@ public class FACES1427PortletTest {
 	// <span id="A2399:f1:comments2Output">comments2-initial-value</span>
 	private static final String comments2OutputXpath = "//span[contains(@id,':comments2Output')]";
 
-	// @ArquillianResource
-	// URL portalURL;
-	String signInUrl = "http://localhost:8080/web/guest/signin";
 	String url = "http://localhost:8080/web/portal-issues/faces-1427";
 
-	@Drone
-	WebDriver browser;
 	@FindBy(xpath = portletDisplayNameXpath)
 	private WebElement portletDisplayName;
 	@FindBy(xpath = fileEntryComponentXpath)
@@ -134,7 +123,6 @@ public class FACES1427PortletTest {
 		logger.log(Level.INFO, "addAttachment.isDisplayed() = " + addAttachment.isDisplayed());
 
 		logger.log(Level.INFO, "isThere(attachmentXpath) = " + isThere(attachmentXpath));
-		// logger.log(Level.INFO, "attachment.isDisplayed() = " + attachment.isDisplayed());
 
 		logger.log(Level.INFO, "textarea1.isDisplayed() = " + textarea1.isDisplayed());
 		logger.log(Level.INFO, "isThere(bold1Xpath) = " + isThere(bold1Xpath));
@@ -162,15 +150,7 @@ public class FACES1427PortletTest {
 	@InSequence(1100)
 	public void steps1and2() throws Exception {
 
-		String path = "/tmp/";
-
-		String os = System.getProperty("os.name");
-
-		if (os.indexOf("win") > -1) {
-			path = "C:\\WINDOWS\\Temp\\";
-		}
-
-		fileEntryComponent.sendKeys(path + "liferay-jsf-jersey.png");
+		fileEntryComponent.sendKeys(getPathToJerseyFile());
 		Thread.sleep(50);
 		addAttachment.click();
 		Thread.sleep(500);
@@ -196,7 +176,6 @@ public class FACES1427PortletTest {
 
 		logger.log(Level.INFO, "textarea1.getAttribute('value') = " + textarea1.getAttribute("value"));
 
-		// logger.log(Level.INFO, "iframe1.getText() = " + iframe1.getText());
 		logger.log(Level.INFO, "isThere(iframe1Xpath) = " + isThere(iframe1Xpath));
 		Thread.sleep(250);
 		submit.click();
@@ -387,28 +366,6 @@ public class FACES1427PortletTest {
 			"it is '" + comments2Output.getText() + "'",
 			comments2Output.getText().equals("comments2-[b]subsequent[/b]-value"));
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

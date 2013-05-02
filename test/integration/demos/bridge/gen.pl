@@ -171,7 +171,7 @@ foreach my $class (@class) {
       chomp;
       if (/public class/) {
          print "$_\n";
-         print OUT "public class $class \{\n";
+         print OUT "public class $class extends Tester \{\n";
       } elsif (/protected final static Logger/) {
          print "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
          print OUT "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";

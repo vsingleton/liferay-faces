@@ -13,39 +13,33 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-// import java.net.URL;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import com.liferay.faces.test.util.Tester;
+
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class PlutoTest {
-
-	private static final Logger logger = Logger.getLogger(PlutoTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[@id='j_username']";
-	private static final String passwordFieldXpath = "//input[@id='j_password']";
-	private static final String signInButtonXpath = "//input[@id='j_login']";
-	private static final String signedInTextXpath = "//div[@id='logout']/a";
+public class PlutoTest extends Tester {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
@@ -116,19 +110,8 @@ public class PlutoTest {
 	// xpath for specific tests
 	private static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
 
-	String signInUrl = "http://localhost:8080/pluto/portal";
 	String url = "http://localhost:8080/pluto/portal/JSF2";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
 	@FindBy(xpath = portletDisplayNameXpath)
@@ -206,25 +189,6 @@ public class PlutoTest {
 	@FindBy(xpath = bridgeVersionXpath)
 	private WebElement bridgeVersion;
 	int dateValidationXpathModifier = 1;
-
-	public void signIn() throws Exception {
-
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("pluto");
-		passwordField.clear();
-		passwordField.sendKeys("pluto");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -403,7 +367,11 @@ public class PlutoTest {
 		datePatternField.sendKeys("MM/dd/yy");
 		preferencesSubmitButton.click();
 
-		// Yikes ... we need some more consistency here
+		// TODO after clicking the preferencesSubmitButton all of the job applicant demos need to end up on the same
+		// page Here is a log statement that should give you a clue between the different tester as to which ones are
+		// different from others
+		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
+
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
 		Thread.sleep(1000);
@@ -422,6 +390,7 @@ public class PlutoTest {
 			logger.log(Level.INFO, "editPreferencesButton.click() ...");
 		}
 		else {
+			logger.log(Level.INFO, "NO editPreferencesButton isThere, so menuPreferences.click() ...");
 			menuButton.click();
 			Thread.sleep(500);
 			menuPreferences.click();
@@ -432,10 +401,16 @@ public class PlutoTest {
 		logger.log(Level.INFO, "resetButton.click() ...");
 		Thread.sleep(1000);
 
-		// Yikes ... we need some more consistency here
+		// TODO after clicking the resetButton all of the job applicant demos need to end up on the same page Here is a
+		// log statement that should give you a clue between the different tester as to which ones are different from
+		// others
+		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
+
 		logger.log(Level.INFO, "browser.navigate().to(" + url + ")");
 		browser.navigate().to(url);
-		Thread.sleep(500);
+
+		waitForElement(dateOfBirthFieldXpath);
+
 		logger.log(Level.INFO, "dateOfBirthField.getAttribute('value') = " + dateOfBirthField.getAttribute("value"));
 		logger.log(Level.INFO,
 			"dateOfBirthField.getAttribute('value').length() = " + dateOfBirthField.getAttribute("value").length());
@@ -686,13 +661,6 @@ public class PlutoTest {
 	public void fileUpload() throws Exception {
 
 		boolean uploaded = false;
-		String path = "/tmp/";
-
-		String os = System.getProperty("os.name");
-
-		if (os.indexOf("win") > -1) {
-			path = "C:\\WINDOWS\\Temp\\";
-		}
 
 		if (isThere(fileUploadChooserXpath)) {
 			logger.log(Level.INFO, "isThere(fileUploadChooserXpath) = " + isThere(fileUploadChooserXpath));
@@ -706,8 +674,8 @@ public class PlutoTest {
 			Thread.sleep(500);
 		}
 
-		logger.log(Level.INFO, "entering in " + path + "liferay-jsf-jersey.png for fileUploadChooser ...");
-		fileUploadChooser.sendKeys(path + "liferay-jsf-jersey.png");
+		logger.log(Level.INFO, "entering in " + getPathToJerseyFile() + " for fileUploadChooser ...");
+		fileUploadChooser.sendKeys(getPathToJerseyFile());
 
 		Thread.sleep(50);
 		logger.log(Level.INFO, "submitting the uploaded file ...");
@@ -817,20 +785,22 @@ public class PlutoTest {
 
 		// asserting correct data is still there
 		assertTrue("asserting that firstNameField.getText().equals('David'), " + "but it is '" +
-			firstNameField.getText() + "'", firstNameField.getAttribute("value").equals("David"));
+			firstNameField.getAttribute("value") + "'", firstNameField.getAttribute("value").equals("David"));
 		assertTrue("asserting that lastNameField.getText().equals('Samuel'), " + "but it is '" +
-			lastNameField.getText() + "'", lastNameField.getAttribute("value").equals("Samuel"));
+			lastNameField.getAttribute("value") + "'", lastNameField.getAttribute("value").equals("Samuel"));
 		assertTrue("asserting that emailAddressField.getText().equals('no_need@just.pray'), " + "but it is '" +
-			emailAddressField.getText() + "'", emailAddressField.getAttribute("value").equals("no_need@just.pray"));
+			emailAddressField.getAttribute("value") + "'",
+			emailAddressField.getAttribute("value").equals("no_need@just.pray"));
 		assertTrue("asserting that phoneNumberField.getText().equals('(way) too-good'), " + "but it is '" +
-			phoneNumberField.getText() + "'", phoneNumberField.getAttribute("value").equals("(way) too-good"));
+			phoneNumberField.getAttribute("value") + "'",
+			phoneNumberField.getAttribute("value").equals("(way) too-good"));
 		assertTrue("asserting that dateOfBirthField.getText().equals('01/02/3456'), " + "but it is '" +
-			dateOfBirthField.getText() + "'", dateOfBirthField.getAttribute("value").equals("01/02/3456"));
+			dateOfBirthField.getAttribute("value") + "'", dateOfBirthField.getAttribute("value").equals("01/02/3456"));
 		assertTrue("asserting that postalCodeField.getText().equals('32801'), " + "but it is '" +
-			postalCodeField.getText() + "'", postalCodeField.getAttribute("value").equals("32801"));
+			postalCodeField.getAttribute("value") + "'", postalCodeField.getAttribute("value").equals("32801"));
 		assertTrue(
 			"asserting that comments.getText().equals('If as one people speaking the same language, they have begun to do this ...'), " +
-			"but it is '" + comments.getText() + "'",
+			"but it is '" + comments.getAttribute("value") + "'",
 			comments.getAttribute("value").equals(
 				"If as one people speaking the same language, they have begun to do this ..."));
 
@@ -843,25 +813,4 @@ public class PlutoTest {
 
 	}
 
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
-	}
 }

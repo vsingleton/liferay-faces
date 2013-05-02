@@ -13,37 +13,29 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
+
+import com.liferay.faces.test.util.Tester;
+
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Icefaces3DirectoryPortletTest {
-
-	// private static final Logger logger;
-	private static final Logger logger = Logger.getLogger(Icefaces3DirectoryPortletTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String portletBodyXpath = "//div[contains(text(),'You are signed in as')]";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
+public class Icefaces3DirectoryPortletTest extends Tester {
 
 	// elements for Icefaces3Directory
 	private static final String portletTitleTextXpath = "//span[@class='portlet-title-text']";
@@ -86,21 +78,8 @@ public class Icefaces3DirectoryPortletTest {
 		"//tr[contains(@class, 'iceDatTblRow') and contains(@id, ':users:')]/td[contains(@class, 'iceDatTblCol1')]/span[contains(text(), 'Test')]";
 	private static final String testUserEmailAddressCellXpath = "//a[@href='mailto:test@liferay.com']";
 
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url = "http://localhost:8080/group/portal-demos/ice3-dir";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = portletBodyXpath)
-	private WebElement portletBody;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = portletTitleTextXpath)
 	private WebElement portletTitleText;
 	@FindBy(xpath = menuButtonXpath)
@@ -137,25 +116,6 @@ public class Icefaces3DirectoryPortletTest {
 	private WebElement testUserFirstNameCell;
 	@FindBy(xpath = testUserEmailAddressCellXpath)
 	private WebElement testUserEmailAddressCell;
-
-	public void signIn() throws Exception {
-
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("test@liferay.com");
-		passwordField.clear();
-		passwordField.sendKeys("test");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -234,28 +194,6 @@ public class Icefaces3DirectoryPortletTest {
 		assertTrue(
 			"The Email Address Cell of the Test user should be displayed on the page as test@liferay.com at this point but it is not.",
 			testUserEmailAddressCell.isDisplayed());
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }

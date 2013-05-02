@@ -13,43 +13,32 @@
  */
 package com.liferay.faces.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.liferay.faces.test.util.Tester;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Primefaces3UsersPortletTest {
-
-	// private static final Logger logger;
-	private static final Logger logger = Logger.getLogger(Primefaces3UsersPortletTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String portletBodyXpath = "//div[contains(text(),'You are signed in as')]";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
+public class Primefaces3UsersPortletTest extends Tester {
 
 	// Elements for reseting the John Adams user before running the test
 	private static final String controlPanelTestSetupXpath = "//span[text()=' Control Panel ']";
@@ -183,24 +172,9 @@ public class Primefaces3UsersPortletTest {
 	private static final String changedUserEmailAddressCellXpath = "//a[@href='mailto:A@A.com']";
 	private static final String changedUserJobTitleCellXpath = "//span[contains(@id,':jobTitleCell') and text()='Aa']";
 
-	private static final String JERSEY_FILE = "liferay-jsf-jersey.png";
-
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 	String url =
 		"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefaces3usersportlet&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = portletBodyXpath)
-	private WebElement portletBody;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = controlPanelTestSetupXpath)
 	private WebElement controlPanelTestSetup;
 	@FindBy(xpath = usersAndOrganizationsLinkTestSetupXpath)
@@ -333,25 +307,6 @@ public class Primefaces3UsersPortletTest {
 	private WebElement changedUserEmailAddressCell;
 	@FindBy(xpath = changedUserJobTitleCellXpath)
 	private WebElement changedUserJobTitleCell;
-
-	public void signIn() throws Exception {
-		
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("test@liferay.com");
-		passwordField.clear();
-		passwordField.sendKeys("test");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -638,7 +593,7 @@ public class Primefaces3UsersPortletTest {
 
 		waitForElement(cancelButtonXpath);
 
-		fileEntry.sendKeys(getPathForJerseyFile());
+		fileEntry.sendKeys(getPathToJerseyFile());
 		fileUploadButton.click();
 
 		waitForElement(changedPortraitXpath);
@@ -659,7 +614,7 @@ public class Primefaces3UsersPortletTest {
 		assertTrue("The User Portrait should be displayed on the page at this point but it is not.",
 			portrait.isDisplayed());
 
-		fileEntry.sendKeys(getPathForJerseyFile());
+		fileEntry.sendKeys(getPathToJerseyFile());
 		fileUploadButton.click();
 
 		waitForElement(changedPortraitXpath);
@@ -791,42 +746,4 @@ public class Primefaces3UsersPortletTest {
 			johnAdamsUserEmailAddressCell.isDisplayed());
 	}
 
-	public String getPathForJerseyFile() {
-		String path = "/tmp/";
-
-		String os = System.getProperty("os.name");
-
-		if (os.indexOf("win") > -1) {
-			path = "C:\\WINDOWS\\Temp\\";
-		}
-
-		return path + JERSEY_FILE;
-	}
-
-	public void waitForElement(String xpath) {
-		WebDriverWait wait = new WebDriverWait(browser, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.ByXPath.xpath(xpath)));
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
-	}
 }
