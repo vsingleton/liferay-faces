@@ -31,7 +31,6 @@ import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.test.util.Tester;
 
-
 /**
  * @author  Liferay Faces Team
  */
@@ -40,40 +39,28 @@ public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 
 	// portlet topper for customer
 	private static final String customerPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[1]";
-
 	private static final String briansInputXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/../td[1]/input";
-
 	private static final String briansFirstNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/following-sibling::*[1]";
-
 	private static final String briansLastNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/following-sibling::*[1]/following-sibling::*[1]";
-
 	private static final String lizsInputXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/../td[1]/input";
-
 	private static final String lizsFirstNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/following-sibling::*[1]";
-
 	private static final String lizsLastNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/following-sibling::*[1]/following-sibling::*[1]";
-
+	
 	// portlet topper for bookings
 	private static final String bookingsPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[2]";
-
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String firstNameXpath = "//input[contains(@id,':firstName')]";
-
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String lastNameXpath = "//input[contains(@id,':lastName')]";
-
 	private static final String bookingTypeIdXpath = "(//select[contains(@id,':bookingTypeId')])[1]";
-
 	private static final String startDateXpath = "(//input[contains(@id,':startDate')])[1]";
-
 	private static final String finishDateXpath = "(//input[contains(@id,':finishDate')])[1]";
-
 	// <input type="submit" name="A8622:f1:j_idt28" value="Submit" id="aui_3_4_0_1_2331">
 	private static final String submitXpath = "//input[@type='submit' and @value='Submit']";
 
@@ -179,8 +166,9 @@ public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 		finishDate.sendKeys("04/20/2099");
 		logger.log(Level.INFO, "submit.click() ...");
 		submit.click();
-		Thread.sleep(250);
-
+		
+		waitForElement(briansLastNameXpath);
+		
 		logger.log(Level.INFO, "briansLastName.getText() = " + briansLastName.getText());
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));
 		logger.log(Level.INFO, "finishDate.getAttribute(value) = " + finishDate.getAttribute("value"));
@@ -201,7 +189,8 @@ public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 	public void checkLizsBookings() throws Exception {
 
 		lizsInput.click();
-		Thread.sleep(500);
+		
+		waitForElement(lizsFirstNameXpath);
 
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));
@@ -229,8 +218,9 @@ public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 		finishDate.clear();
 		finishDate.sendKeys("12/25/2999");
 		submit.click();
-		Thread.sleep(250);
-
+		
+		waitForElement(lizsFirstNameXpath);
+		
 		logger.log(Level.INFO, "lizsFirstName.getText() = " + lizsFirstName.getText());
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "finishDate.getAttribute(value) = " + finishDate.getAttribute("value"));
@@ -251,7 +241,8 @@ public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
 	public void checkBriansBookingsAgain() throws Exception {
 
 		briansInput.click();
-		Thread.sleep(500);
+		
+		waitForElement(firstNameXpath);
 
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));

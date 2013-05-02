@@ -37,60 +37,35 @@ import com.liferay.faces.test.util.Tester;
 @RunWith(Arquillian.class)
 public class Jsf2EventsTest extends Tester {
 
-	// form tag found after submitting
-	private static final String formTagXpath = "//form[@method='post']";
-
 	// portlet topper for customer
 	private static final String customerPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[1]";
-
 	private static final String briansInputXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/../td[1]/input";
-
 	private static final String briansFirstNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/following-sibling::*[1]";
-
 	private static final String briansLastNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/following-sibling::*[1]/following-sibling::*[1]";
-
 	private static final String lizsInputXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/../td[1]/input";
-
 	private static final String lizsFirstNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/following-sibling::*[1]";
-
 	private static final String lizsLastNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/following-sibling::*[1]/following-sibling::*[1]";
-
+	
 	// portlet topper for bookings
 	private static final String bookingsPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[2]";
-
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String firstNameXpath = "//input[contains(@id,':firstName')]";
-
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String lastNameXpath = "//input[contains(@id,':lastName')]";
-
-	// <select id="A8622:f1:j_idt14:0:bookingTypeId" name="A8622:f1:j_idt14:0:bookingTypeId" size="1"> <option
-	// value="">-- Select --</option> <option value="1">Airfare</option> <option value="2">Cruise</option> <option
-	// value="3">Hotel</option> <option value="4">Play/Theatre</option> <option value="5" selected="selected">Rental
-	// Car</option> <option value="6">Theme Park</option> <option value="7">Train</option> </select>
 	private static final String bookingTypeIdXpath = "(//select[contains(@id,':bookingTypeId')])[1]";
-
-	// <input id="A8622:f1:j_idt14:0:startDate" type="text" name="A8622:f1:j_idt14:0:startDate" value="04/20/2013"
-	// class="focus">
 	private static final String startDateXpath = "(//input[contains(@id,':startDate')])[1]";
-
-	// <input id="A8622:f1:j_idt14:0:finishDate" type="text" name="A8622:f1:j_idt14:0:finishDate" value="04/27/2013"
-	// class="focus">
 	private static final String finishDateXpath = "(//input[contains(@id,':finishDate')])[1]";
-
 	// <input type="submit" name="A8622:f1:j_idt28" value="Submit" id="aui_3_4_0_1_2331">
 	private static final String submitXpath = "//input[@type='submit' and @value='Submit']";
 
 	static final String url = "http://localhost:8080/group/bridge-demos/jsf2-events";
 
-	@FindBy(xpath = formTagXpath)
-	private WebElement formTag;
 	@FindBy(xpath = customerPortletDisplayNameXpath)
 	private WebElement customerPortletDisplayName;
 	@FindBy(xpath = briansInputXpath)
@@ -185,11 +160,15 @@ public class Jsf2EventsTest extends Tester {
 		lastName.clear();
 		logger.log(Level.INFO, "lastName.sendKeys('Greeny') ...");
 		lastName.sendKeys("Greeny");
+		logger.log(Level.INFO, "finishDate.clear() ...");
 		finishDate.clear();
+		logger.log(Level.INFO, "finishDate.sendKeys('04/20/2099') ...");
 		finishDate.sendKeys("04/20/2099");
+		logger.log(Level.INFO, "submit.click() ...");
 		submit.click();
-		Thread.sleep(250);
-
+		
+		waitForElement(briansLastNameXpath);
+		
 		logger.log(Level.INFO, "briansLastName.getText() = " + briansLastName.getText());
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));
 		logger.log(Level.INFO, "finishDate.getAttribute(value) = " + finishDate.getAttribute("value"));
@@ -210,7 +189,8 @@ public class Jsf2EventsTest extends Tester {
 	public void checkLizsBookings() throws Exception {
 
 		lizsInput.click();
-		Thread.sleep(500);
+		
+		waitForElement(lizsFirstNameXpath);
 
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));
@@ -238,8 +218,9 @@ public class Jsf2EventsTest extends Tester {
 		finishDate.clear();
 		finishDate.sendKeys("12/25/2999");
 		submit.click();
-		Thread.sleep(250);
-
+		
+		waitForElement(lizsFirstNameXpath);
+		
 		logger.log(Level.INFO, "lizsFirstName.getText() = " + lizsFirstName.getText());
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "finishDate.getAttribute(value) = " + finishDate.getAttribute("value"));
@@ -260,7 +241,8 @@ public class Jsf2EventsTest extends Tester {
 	public void checkBriansBookingsAgain() throws Exception {
 
 		briansInput.click();
-		Thread.sleep(500);
+		
+		waitForElement(firstNameXpath);
 
 		logger.log(Level.INFO, "firstName.getAttribute(value) = " + firstName.getAttribute("value"));
 		logger.log(Level.INFO, "lastName.getAttribute(value) = " + lastName.getAttribute("value"));
