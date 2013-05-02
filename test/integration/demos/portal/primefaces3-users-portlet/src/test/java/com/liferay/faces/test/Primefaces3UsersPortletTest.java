@@ -31,14 +31,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Primefaces3UsersPortletTest extends Tester {
+public class Primefaces3UsersPortletTest extends TesterBase {
 
 	// Elements for reseting the John Adams user before running the test
 	private static final String controlPanelTestSetupXpath = "//span[text()=' Control Panel ']";

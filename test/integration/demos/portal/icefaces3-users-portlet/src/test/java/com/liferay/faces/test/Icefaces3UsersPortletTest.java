@@ -31,14 +31,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Icefaces3UsersPortletTest extends Tester {
+public class Icefaces3UsersPortletTest extends TesterBase {
 
 	// elements for Icefaces3Users
 	private static final String portletTitleTextXpath = "//span[@class='portlet-title-text']";

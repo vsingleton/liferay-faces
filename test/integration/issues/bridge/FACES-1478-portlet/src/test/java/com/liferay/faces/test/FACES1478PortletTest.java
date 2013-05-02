@@ -28,14 +28,14 @@ import org.junit.runner.RunWith;
 
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class FACES1478PortletTest extends Tester {
+public class FACES1478PortletTest extends TesterBase {
 
 	// portlet topper and menu elements
 	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";

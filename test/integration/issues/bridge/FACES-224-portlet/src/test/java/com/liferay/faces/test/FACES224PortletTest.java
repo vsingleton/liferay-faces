@@ -29,14 +29,14 @@ import org.junit.runner.RunWith;
 
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class FACES224PortletTest extends Tester {
+public class FACES224PortletTest extends TesterBase {
 
 	private static final Logger logger = Logger.getLogger(FACES224PortletTest.class.getName());
 

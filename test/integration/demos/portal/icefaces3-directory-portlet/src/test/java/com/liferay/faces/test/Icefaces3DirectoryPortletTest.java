@@ -28,14 +28,14 @@ import org.junit.runner.RunWith;
 
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Icefaces3DirectoryPortletTest extends Tester {
+public class Icefaces3DirectoryPortletTest extends TesterBase {
 
 	// elements for Icefaces3Directory
 	private static final String portletTitleTextXpath = "//span[@class='portlet-title-text']";

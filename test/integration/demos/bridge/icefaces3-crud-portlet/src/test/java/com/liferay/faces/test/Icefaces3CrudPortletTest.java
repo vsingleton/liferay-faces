@@ -26,13 +26,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Icefaces3CrudPortletTest extends Tester {
+public class Icefaces3CrudPortletTest extends TesterBase {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";

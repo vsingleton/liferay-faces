@@ -29,13 +29,13 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Jsf2IpcPubRenderParamsPortletTest extends Tester {
+public class Jsf2IpcPubRenderParamsPortletTest extends TesterBase {
 
 	// portlet topper for customer
 	private static final String customerPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[1]";

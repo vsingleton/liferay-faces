@@ -32,14 +32,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.liferay.faces.test.util.Tester;
+import com.liferay.faces.test.util.TesterBase;
 
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Jsf2CdiPortletTest extends Tester {
+public class Jsf2CdiPortletTest extends TesterBase {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
