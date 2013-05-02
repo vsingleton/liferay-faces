@@ -20,4 +20,12 @@
 		<module>portal</module>
 	</modules>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>liferay-faces-test-util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 </project>

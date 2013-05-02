@@ -659,7 +659,6 @@
 				<groupId>org.jboss.arquillian.graphene</groupId>
 				<artifactId>graphene-webdriver</artifactId>
 				<version>${arquillian.graphene.version}</version>
-				<scope>test</scope>
 				<type>pom</type>
 			</dependency>
 
@@ -668,49 +667,38 @@
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-api</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-configuration</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-impl</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-spi</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-webdriver</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-webdriver-depchain</artifactId>
 				<version>${arquillian.drone.version}</version>
-				<scope>test</scope>
+				<type>pom</type>
 			</dependency>
 
 			<!-- <dependency> <groupId>org.jboss.shrinkwrap.descriptors</groupId> <artifactId>shrinkwrap-descriptors-bom</artifactId> 
 				<version>${shrinkwrap.descriptor.version}</version> <scope>import</scope> <type>pom</type> </dependency> <dependency> <groupId>org.jboss.shrinkwrap.resolver</groupId> 
 				<artifactId>shrinkwrap-resolver-bom</artifactId> <version>${shrinkwrap.resolver.version}</version> <scope>import</scope> 
 				<type>pom</type> </dependency> -->
-
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
 
 			<!-- Selenium dependecies -->
 			<dependency>
