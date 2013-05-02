@@ -22,7 +22,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces.test</groupId>
+			<groupId>com.liferay.faces.test.integration</groupId>
 			<artifactId>liferay-faces-test-util</artifactId>
 			<version>${project.version}</version>
 		</dependency>
