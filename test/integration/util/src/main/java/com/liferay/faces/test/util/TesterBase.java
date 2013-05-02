@@ -29,9 +29,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * This class provides methods that may be used to help test portlets
  */
-public class Tester {
+public class TesterBase {
 
-	protected static final Logger logger = Logger.getLogger(Tester.class.getName());
+	protected static final Logger logger = Logger.getLogger(TesterBase.class.getName());
 
 	// elements for logging in
 	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
