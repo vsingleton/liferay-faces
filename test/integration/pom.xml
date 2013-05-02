@@ -16,6 +16,7 @@
 	<name>Liferay Faces Test Integration</name>
 
 	<modules>
+		<module>util</module>
 		<module>demos</module>
 		<module>issues</module>
 	</modules>
