@@ -57,36 +57,28 @@ public class Icefaces3PortletTest extends Tester {
 	private static final String logoXpath = "//img[contains(@src,'liferay-logo.png')]";
 
 	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName_input')]";
-	private static final String firstNameFieldErrorXpath =
-		"//input[contains(@id,':firstName_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String firstNameFieldErrorXpath = "//input[contains(@id,':firstName_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName_input')]";
-	private static final String lastNameFieldErrorXpath =
-		"//input[contains(@id,':lastName_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress_input')]";
-	private static final String emailAddressFieldErrorXpath =
-		"//input[contains(@id,':emailAddress_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber_input')]";
-	private static final String phoneNumberFieldErrorXpath =
-		"//input[contains(@id,':phoneNumber_input')]/../../following-sibling::*[1]/child::node()";
+	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber_input')]/../../following-sibling::*[1]/child::node()";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth_input')]";
-	private static final String dateOfBirthFieldErrorXpath =
-		"//input[contains(@id,':dateOfBirth_input')]/../following-sibling::*[1]/child::node()";
+	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth_input')]/../following-sibling::*[1]/child::node()";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city_input')]";
-	private static final String cityFieldErrorXpath =
-		"//input[contains(@id,':city_input')]/../../following-sibling::*[1]";
+	private static final String cityFieldErrorXpath = "//input[contains(@id,':city_input')]/../../following-sibling::*[1]";
 
 	private static final String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-	private static final String provinceIdFieldErrorXpath =
-		"//select[contains(@id,':provinceId')]/following-sibling::*[1]";
+	private static final String provinceIdFieldErrorXpath = "//select[contains(@id,':provinceId')]/following-sibling::*[1]";
 
 	private static final String postalCodeFieldXpath = "//input[contains(@id,':postalCode_input')]";
-	private static final String postalCodeFieldErrorXpath =
-		"//input[contains(@id,':postalCode_input')]/../../following-sibling::*[1]/following-sibling::*[1]";
+	private static final String postalCodeFieldErrorXpath = "//input[contains(@id,':postalCode_input')]/../../following-sibling::*[1]/following-sibling::*[1]";
 
 	private static final String postalCodeToolTipXpath = "//img[contains(@title,'Type any of these ZIP codes')]";
 
@@ -109,10 +101,9 @@ public class Icefaces3PortletTest extends Tester {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath =
-		"//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
+	private static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/child::node()";
 
-	String url = "http://localhost:8080/group/bridge-demos/ice3";
+	static final String url = "http://localhost:8080/group/bridge-demos/ice3";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
@@ -190,7 +181,8 @@ public class Icefaces3PortletTest extends Tester {
 	private WebElement alloyVersion;
 	@FindBy(xpath = bridgeVersionXpath)
 	private WebElement bridgeVersion;
-	int dateValidationXpathModifier = 0;
+	
+	protected int dateValidationXpathModifier = 0;
 
 	@Test
 	@RunAsClient

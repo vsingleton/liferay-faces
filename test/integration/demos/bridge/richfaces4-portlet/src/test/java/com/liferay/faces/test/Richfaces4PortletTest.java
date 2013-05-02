@@ -57,34 +57,28 @@ public class Richfaces4PortletTest extends Tester {
 	private static final String logoXpath = "//img[contains(@src,'liferay-logo.png')]";
 
 	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-	private static final String firstNameFieldErrorXpath =
-		"//input[contains(@id,':firstName')]/following-sibling::*[1]";
+	private static final String firstNameFieldErrorXpath = "//input[contains(@id,':firstName')]/following-sibling::*[1]";
 
 	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
 	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName')]/following-sibling::*[1]";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-	private static final String emailAddressFieldErrorXpath =
-		"//input[contains(@id,':emailAddress')]/following-sibling::*[1]/child::node()[1]/child::node()[1]";
+	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress')]/following-sibling::*[1]/child::node()[1]/child::node()[1]";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
-	private static final String phoneNumberFieldErrorXpath =
-		"//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
+	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth')]";
-	private static final String dateOfBirthFieldErrorXpath =
-		"//span[contains(@id,':dateOfBirthField')]/span/span/span/span[contains(@id,':dateOfBirth')]/span";
+	private static final String dateOfBirthFieldErrorXpath = "//span[contains(@id,':dateOfBirthField')]/span/span/span/span[contains(@id,':dateOfBirth')]/span";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city')]";
 	private static final String cityFieldErrorXpath = "//input[contains(@id,':city')]/following-sibling::*[1]";
 
 	private static final String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-	private static final String provinceIdFieldErrorXpath =
-		"//select[contains(@id,':provinceId')]/following-sibling::*[1]";
+	private static final String provinceIdFieldErrorXpath = "//select[contains(@id,':provinceId')]/following-sibling::*[1]";
 
 	private static final String postalCodeFieldXpath = "//input[contains(@id,':postalCode')]";
-	private static final String postalCodeFieldErrorXpath =
-		"//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
+	private static final String postalCodeFieldErrorXpath = "//input[contains(@id,':postalCode')]/following-sibling::*[1]/following-sibling::*[1]";
 
 	private static final String postalCodeToolTipXpath = "//img[contains(@title,'Type any of these ZIP codes')]";
 
@@ -107,10 +101,9 @@ public class Richfaces4PortletTest extends Tester {
 	private static final String bridgeVersionXpath = "//*[contains(text(),'Liferay Faces Bridge')]";
 
 	// xpath for specific tests
-	private static final String dateValidationXpath =
-		"//span[contains(@id,':dateOfBirthField')]/span/span/span/span[contains(@id,':dateOfBirth')]/span";
+	private static final String dateValidationXpath = "//span[contains(@id,':dateOfBirthField')]/span/span/span/span[contains(@id,':dateOfBirth')]/span";
 
-	String url = "http://localhost:8080/group/bridge-demos/rich4";
+	static final String url = "http://localhost:8080/group/bridge-demos/rich4";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
@@ -188,7 +181,8 @@ public class Richfaces4PortletTest extends Tester {
 	private WebElement alloyVersion;
 	@FindBy(xpath = bridgeVersionXpath)
 	private WebElement bridgeVersion;
-	int dateValidationXpathModifier = 0;
+	
+	protected int dateValidationXpathModifier = 0;
 
 	@Test
 	@RunAsClient

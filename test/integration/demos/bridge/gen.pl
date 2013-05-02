@@ -86,6 +86,8 @@ if ( -f "$issueFile" ) {
    print "no issuesFile ... \n";
 }
 
+print "using template: $template\n\n";
+
 # parse the Xpath variable names in from the template .java file
 open(TEMPLATE, $template) or die "cannot open $template: $!\n";
 while (<TEMPLATE>) {
@@ -137,27 +139,28 @@ foreach my $class (@class) {
    # print "$dir $javaFile\n";
 
    # parse the Xpaths in that are specific to the component library being tested
-   print "$in{$class}\n";
+   print "getting xpaths from $in{$class}\n";
    open(IN, $in{$class}) or die "cannot open $in{$class}: $!\n";
    while (<IN>) {
       chomp;
-      if(/String url =/) {
+      if(/static final String url =/) {
          $url = $_;
       }
       if (/private..*Xpath/) {
          ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
          $xpath = join " ", @path;
          $xpaths{$variable} = $xpath;
-         # print "$variable $xpath\n";
+         # print "private $variable $xpath\n";
       }
       if (/protected..*Xpath/) {
          ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
          $xpath = join " ", @path;
          $xpaths{$variable} = $xpath;
-         # print "$variable $xpath\n";
+         # print "protected $variable $xpath\n";
       }
-      if (/int dateValidationXpathModifier/) {
+      if (/protected int dateValidationXpathModifier/) {
          $dateValidationXpathModifier = $_;
+         # print "dateValidationXpathModifier=$dateValidationXpathModifier\n";
       }
    }
    close IN;
@@ -170,21 +173,21 @@ foreach my $class (@class) {
       ++$lineNumber;
       chomp;
       if (/public class/) {
-         print "$_\n";
+         # print "$_\n";
          print OUT "public class $class extends Tester \{\n";
       } elsif (/protected final static Logger/) {
          print "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
          print OUT "	protected final static Logger logger = Logger.getLogger(${class}.class.getName());\n";
-      } elsif (/String url =/) {
+      } elsif (/static final String url =/) {
          print "$url\n";
          print OUT "$url\n";
       } elsif (/private..*Xpath/) {
          ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
          print OUT "	private static final String $variable = $xpaths{$variable}\n";
-      } elsif (/protected..*Xpath/) {
+      } elsif (/protected..*Xpath/ and not /protected..*XpathMod/) {
          ($foo,$foo,$foo,$foo,$variable,$foo,@path) = split;
          print OUT "	protected static final String $variable = $xpaths{$variable}\n";
-      } elsif (/int dateValidationXpathModifier/) {
+      } elsif (/protected int dateValidationXpathModifier/) {
          print OUT "$dateValidationXpathModifier\n";
       } elsif (defined $annotations{$lineNumber}) {
          if (defined $methods{$class . $annotations{$lineNumber}}) {

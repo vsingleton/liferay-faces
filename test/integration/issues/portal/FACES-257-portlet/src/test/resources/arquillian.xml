@@ -10,7 +10,7 @@
 		<!-- <property name="browserCapabilities">htmlUnit</property> -->
 		<property name="javascriptEnabled">true</property>
 
-		<!-- The list of supported browser via capabilities is: android chrome firefox htmlUnit internetExplorer iphone opera null -->
+		<!-- Possible browser values: android chrome firefox htmlUnit internetExplorer iphone opera null -->
 	</extension>
 
 	<extension qualifier="graphene">

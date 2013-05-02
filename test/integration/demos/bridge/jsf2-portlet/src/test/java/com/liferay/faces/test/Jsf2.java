@@ -16,7 +16,6 @@ package com.liferay.faces.test;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -25,12 +24,6 @@ import org.openqa.selenium.WebElement;
 public class Jsf2 {
 
 	protected static final Logger logger = Logger.getLogger(Jsf2.class.getName());
-	
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
@@ -94,18 +87,8 @@ public class Jsf2 {
 	// xpath for specific tests
 	protected static final String dateValidationXpath = "//input[contains(@id,':dateOfBirth')]/../child::node()";
 
-	String signInUrl = "http://localhost:8080/web/guest/signin";
-	String url = "http://localhost:8080/group/bridge-demos/jsf2";
+	static final String url = "http://localhost:8080/group/bridge-demos/jsf2";
 
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
 	@FindBy(xpath = portletDisplayNameXpath)
@@ -182,6 +165,7 @@ public class Jsf2 {
 	private WebElement alloyVersion;
 	@FindBy(xpath = bridgeVersionXpath)
 	private WebElement bridgeVersion;
-	int dateValidationXpathModifier = 1;
+	
+	protected int dateValidationXpathModifier = 1;
 
 }

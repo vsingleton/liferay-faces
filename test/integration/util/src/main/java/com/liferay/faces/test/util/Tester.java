@@ -50,7 +50,7 @@ public class Tester {
 	@FindBy(xpath = signedInTextXpath)
 	private WebElement signedInText;
 
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
+	static final String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
 
 	@Drone
 	public WebDriver browser;

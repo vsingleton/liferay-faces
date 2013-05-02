@@ -78,7 +78,7 @@ public class Icefaces3DirectoryPortletTest extends Tester {
 		"//tr[contains(@class, 'iceDatTblRow') and contains(@id, ':users:')]/td[contains(@class, 'iceDatTblCol1')]/span[contains(text(), 'Test')]";
 	private static final String testUserEmailAddressCellXpath = "//a[@href='mailto:test@liferay.com']";
 
-	String url = "http://localhost:8080/group/portal-demos/ice3-dir";
+	static final String url = "http://localhost:8080/group/portal-demos/ice3-dir";
 
 	@FindBy(xpath = portletTitleTextXpath)
 	private WebElement portletTitleText;

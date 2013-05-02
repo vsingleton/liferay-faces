@@ -58,7 +58,7 @@ public class FACES1470PortletTest extends Tester {
 	private static final String fullPostBackButton2Xpath =
 		"//input[contains(@value,'Click me to navigate to view1.xhtml via non-Ajax')]";
 
-	String url = "http://localhost:8080/web/bridge-issues/faces-1470";
+	static final String url = "http://localhost:8080/web/bridge-issues/faces-1470";
 
 	@FindBy(xpath = portletDisplayNameXpath)
 	private WebElement portletDisplayName;

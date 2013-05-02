@@ -58,6 +58,8 @@ public class Jsf2LoginPortletTest extends Tester {
 
 	@FindBy(xpath = "//div[contains(text(),'You are signed in as')]")
 	private WebElement portletBody;
+	
+	static final String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 
 	@Before
 	public void getNewSession() {
@@ -69,8 +71,7 @@ public class Jsf2LoginPortletTest extends Tester {
 	@RunAsClient
 	@InSequence(1)
 	public void failToSignIn() throws Exception {
-
-		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
+		
 		logger.log(Level.INFO, "url = " + url);
 
 		browser.get(url);
@@ -109,8 +110,6 @@ public class Jsf2LoginPortletTest extends Tester {
 	@RunAsClient
 	@InSequence(2)
 	public void signIn() throws Exception {
-
-		String url = "http://localhost:8080/web/guest/jsf2-sign-in";
 
 		logger.log(Level.INFO, "url = " + url);
 		browser.get(url);

@@ -13,40 +13,26 @@
  */
 package com.liferay.faces.test;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
+
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.liferay.faces.test.util.Tester;
 
 /**
  * @author  Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class Icefaces3CrudPortletTest {
-
-	private static final Logger logger = Logger.getLogger(Icefaces3CrudPortletTest.class.getName());
-
-	// elements for logging in
-	private static final String emailFieldXpath = "//input[contains(@id,':handle')]";
-	private static final String passwordFieldXpath = "//input[contains(@id,':password')]";
-	private static final String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-	private static final String signedInTextXpath = "//div[contains(text(),'You are signed in as')]";
+public class Icefaces3CrudPortletTest extends Tester {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
@@ -104,19 +90,8 @@ public class Icefaces3CrudPortletTest {
 	// Cancel button
 	private static final String cancelButtonXpath = "//input[@type='submit' and @value='Cancel']";
 
-	String signInUrl = "http://localhost:8080/web/guest/jsf2-sign-in";
-	String url = "http://localhost:8080/group/bridge-demos/ice3-crud";
+	static final String url = "http://localhost:8080/group/bridge-demos/ice3-crud";
 
-	@Drone
-	WebDriver browser;
-	@FindBy(xpath = emailFieldXpath)
-	private WebElement emailField;
-	@FindBy(xpath = passwordFieldXpath)
-	private WebElement passwordField;
-	@FindBy(xpath = signInButtonXpath)
-	private WebElement signInButton;
-	@FindBy(xpath = signedInTextXpath)
-	private WebElement signedInText;
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
 	@FindBy(xpath = portletDisplayNameXpath)
@@ -165,25 +140,6 @@ public class Icefaces3CrudPortletTest {
 	private WebElement saveButton;
 	@FindBy(xpath = cancelButtonXpath)
 	private WebElement cancelButton;
-
-	public void signIn() throws Exception {
-
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-
-		logger.log(Level.INFO, "browser.navigate().to(" + signInUrl + ")");
-		browser.navigate().to(signInUrl);
-		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " before signing in ...");
-
-		emailField.clear();
-		emailField.sendKeys("test@liferay.com");
-		passwordField.clear();
-		passwordField.sendKeys("test");
-		signInButton.click();
-		logger.log(Level.INFO,
-			"browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button and waiting");
-		logger.log(Level.INFO, signedInText.getText());
-
-	}
 
 	@Test
 	@RunAsClient
@@ -360,28 +316,6 @@ public class Icefaces3CrudPortletTest {
 		assertFalse("There should NOT be a Postal Code Validation Error on the but there is.",
 			isThere(postalCodeFieldErrorXpath));
 
-	}
-
-	public boolean isThere(String xpath) {
-		boolean isThere = false;
-		int count = 0;
-		count = browser.findElements(By.xpath(xpath)).size();
-
-		if (count == 0) {
-			isThere = false;
-		}
-
-		if (count > 0) {
-			isThere = true;
-		}
-
-		if (count > 1) {
-			logger.log(Level.WARNING,
-				"The method 'isThere(xpath)' found " + count + " matches using xpath = " + xpath +
-				" ... the word 'is' implies singluar, or 1, not " + count);
-		}
-
-		return isThere;
 	}
 
 }
