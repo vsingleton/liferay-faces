@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.alloy.component.outputtooltip;
 
+import com.liferay.faces.util.component.Styleable;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
@@ -59,7 +60,7 @@ public class OutputTooltipResponseWriter extends DelegationResponseWriterBase {
 
 		// Prevent the JSF runtime writing the "id" attribute since the
 		// OutputToolTipRenderer.encodeMarkupBegin(FacesContext, UIComponent) method has already written it.
-		if (!StringPool.ID.equals(name)) {
+		if (!StringPool.ID.equals(name) && !Styleable.STYLE.equals(name) && !Styleable.STYLE_CLASS.equals(name)) {
 			super.writeAttribute(name, value, property);
 		}
 	}

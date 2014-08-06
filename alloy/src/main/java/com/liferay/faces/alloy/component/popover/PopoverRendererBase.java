@@ -31,13 +31,13 @@ import com.liferay.faces.alloy.component.overlay.OverlayRendererBase;
 public abstract class PopoverRendererBase extends OverlayRendererBase {
 
 	// Protected Constants
+	protected static final String AUTO_SHOW = "autoShow";
 	protected static final String CLIENT_KEY = "clientKey";
 	protected static final String DISMISSIBLE = "dismissible";
 	protected static final String FOR = "for";
 	protected static final String HEADER_CONTENT = "headerContent";
 	protected static final String HIDE_ICON_RENDERED = "hideIconRendered";
 	protected static final String POSITION = "position";
-	protected static final String VISIBLE = "visible";
 	protected static final String Z_INDEX = "zIndex";
 
 	// Private Constants
@@ -52,14 +52,6 @@ public abstract class PopoverRendererBase extends OverlayRendererBase {
 
 		Popover popover = (Popover) uiComponent;
 		boolean first = true;
-
-		Boolean autoShow = popover.isAutoShow();
-
-		if (autoShow != null) {
-
-			encodeVisible(responseWriter, popover, autoShow, first);
-			first = false;
-		}
 
 		String headerText = popover.getHeaderText();
 
@@ -96,10 +88,6 @@ public abstract class PopoverRendererBase extends OverlayRendererBase {
 	@Override
 	protected String[] getModules() {
 		return MODULES;
-	}
-
-	protected void encodeVisible(ResponseWriter responseWriter, Popover popover, Boolean autoShow, boolean first) throws IOException {
-		encodeBoolean(responseWriter, VISIBLE, autoShow, first);
 	}
 
 	protected void encodeHeaderContent(ResponseWriter responseWriter, Popover popover, String headerText, boolean first) throws IOException {

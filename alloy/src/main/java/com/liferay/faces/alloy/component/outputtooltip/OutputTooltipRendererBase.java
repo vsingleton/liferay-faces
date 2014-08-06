@@ -31,12 +31,12 @@ import com.liferay.faces.alloy.component.overlay.OverlayRendererBase;
 public abstract class OutputTooltipRendererBase extends OverlayRendererBase {
 
 	// Protected Constants
+	protected static final String AUTO_SHOW = "autoShow";
 	protected static final String CLIENT_KEY = "clientKey";
 	protected static final String HEADER_CONTENT = "headerContent";
 	protected static final String OPACITY = "opacity";
 	protected static final String POSITION = "position";
 	protected static final String TRIGGER = "trigger";
-	protected static final String VISIBLE = "visible";
 	protected static final String Z_INDEX = "zIndex";
 
 	// Private Constants
@@ -51,14 +51,6 @@ public abstract class OutputTooltipRendererBase extends OverlayRendererBase {
 
 		OutputTooltip outputTooltip = (OutputTooltip) uiComponent;
 		boolean first = true;
-
-		Boolean autoShow = outputTooltip.isAutoShow();
-
-		if (autoShow != null) {
-
-			encodeVisible(responseWriter, outputTooltip, autoShow, first);
-			first = false;
-		}
 
 		String for_ = outputTooltip.getFor();
 
@@ -111,10 +103,6 @@ public abstract class OutputTooltipRendererBase extends OverlayRendererBase {
 	@Override
 	protected String[] getModules() {
 		return MODULES;
-	}
-
-	protected void encodeVisible(ResponseWriter responseWriter, OutputTooltip outputTooltip, Boolean autoShow, boolean first) throws IOException {
-		encodeBoolean(responseWriter, VISIBLE, autoShow, first);
 	}
 
 	protected void encodeTrigger(ResponseWriter responseWriter, OutputTooltip outputTooltip, String for_, boolean first) throws IOException {

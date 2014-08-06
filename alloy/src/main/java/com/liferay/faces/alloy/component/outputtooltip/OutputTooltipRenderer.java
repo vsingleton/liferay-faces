@@ -25,10 +25,14 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 
 import com.liferay.faces.alloy.renderkit.AlloyRendererUtil;
+import com.liferay.faces.util.component.ClientComponent;
+import com.liferay.faces.util.component.ComponentUtil;
+import com.liferay.faces.util.component.Styleable;
 import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.render.DelegationResponseWriter;
+import com.liferay.faces.util.render.RendererUtil;
 
 
 /**
@@ -75,6 +79,21 @@ public class OutputTooltipRenderer extends OutputTooltipRendererBase {
 		if ((tooltip.getFor() == null) && facesContext.isProjectStage(ProjectStage.Development)) {
 			logger.error("The 'for' attribute is required for alloy:outputTooltip");
 		}
+
+		ClientComponent clientComponent = (ClientComponent) uiComponent;
+		String clientVarName = ComponentUtil.getClientVarName(facesContext, clientComponent);
+		String clientKey = clientComponent.getClientKey();
+
+		if (clientKey == null) {
+			clientKey = clientVarName;
+		}
+
+		// In order to workaround a bug where the tooltip appears in the incorrect place, set the trigger again after the tooltip has been initialized
+		encodeLiferayComponentVar(responseWriter, clientVarName, clientKey);
+		responseWriter.write(clientVarName);
+		responseWriter.write(".set('trigger',");
+		responseWriter.write(clientVarName);
+		responseWriter.write(".get('trigger'));");
 	}
 
 	@Override
@@ -84,6 +103,9 @@ public class OutputTooltipRenderer extends OutputTooltipRendererBase {
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement(StringPool.DIV, uiComponent);
 		responseWriter.writeAttribute(StringPool.ID, uiComponent.getClientId(), StringPool.ID);
+		RendererUtil.encodeStyleable(responseWriter, ((Styleable)uiComponent));
+		responseWriter.startElement(StringPool.DIV, null);
+		responseWriter.writeAttribute(StringPool.ID, uiComponent.getClientId(facesContext) + "_contentBox", null);
 
 		// Create a response writer that will ignore the opening and closing "span" element tags.
 		DelegationResponseWriter delegationResponseWriter = new OutputTooltipResponseWriter(responseWriter,
@@ -100,6 +122,7 @@ public class OutputTooltipRenderer extends OutputTooltipRendererBase {
 
 		// Encode the closing </div> tag.
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
+		responseWriter.endElement(StringPool.DIV);
 		responseWriter.endElement(StringPool.DIV);
 	}
 

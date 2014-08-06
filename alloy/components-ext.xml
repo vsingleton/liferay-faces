@@ -998,8 +998,6 @@
 				</description>
 				<name>autoShow</name>
 				<type>boolean</type>
-				<yui>true</yui>
-				<yuiName>visible</yuiName>
 			</attribute>
 			<attribute>
 				<description>
