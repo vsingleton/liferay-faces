@@ -45,6 +45,16 @@ public abstract class OverlayRendererBase extends DelegatingAlloyRendererBase {
 				StringPool.DIV, uiComponent.getClientId(facesContext));
 
 		super.encodeMarkupBegin(facesContext, uiComponent, idDelegationResponseWriter);
+		responseWriter.startElement(StringPool.DIV, null);
+		responseWriter.writeAttribute(StringPool.ID, uiComponent.getClientId(facesContext) + "_contentBox", null);
+	}
+
+	@Override
+	public void encodeMarkupEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+
+		ResponseWriter responseWriter = facesContext.getResponseWriter();
+		responseWriter.endElement(StringPool.DIV);
+		super.encodeMarkupEnd(facesContext, uiComponent);
 	}
 
 	public void encodeOverlayJavaScriptCustom(ResponseWriter responseWriter, FacesContext facesContext, Overlay overlay)
@@ -61,7 +71,7 @@ public abstract class OverlayRendererBase extends DelegatingAlloyRendererBase {
 		String clientId = overlay.getClientId(facesContext);
 		String escapedContentBoxId = StringPool.POUND + RendererUtil.escapeClientId(clientId);
 		responseWriter.write(escapedContentBoxId);
-		responseWriter.write("')._node['style'].display='block';");
+		responseWriter.write("').setStyle('display',null);");
 	}
 
 	protected void encodeOverlayDismissible(ResponseWriter responseWriter, Overlay overlay, String clientKey)
@@ -104,7 +114,8 @@ public abstract class OverlayRendererBase extends DelegatingAlloyRendererBase {
 
 		// Encode the "contentBox" Alloy hidden attribute.
 		String clientId = overlay.getClientId(facesContext);
-		encodeClientId(responseWriter, AlloyRendererUtil.CONTENT_BOX, clientId, first);
+		encodeClientId(responseWriter, AlloyRendererUtil.BOUNDING_BOX, clientId, first);
+		encodeClientId(responseWriter, AlloyRendererUtil.CONTENT_BOX, clientId + "_contentBox", first);
 
 		first = false;
 

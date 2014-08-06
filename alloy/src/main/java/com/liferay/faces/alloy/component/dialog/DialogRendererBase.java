@@ -31,12 +31,12 @@ import com.liferay.faces.alloy.component.overlay.OverlayRendererBase;
 public abstract class DialogRendererBase extends OverlayRendererBase {
 
 	// Protected Constants
+	protected static final String AUTO_SHOW = "autoShow";
 	protected static final String CLIENT_KEY = "clientKey";
 	protected static final String DISMISSIBLE = "dismissible";
 	protected static final String HEADER_CONTENT = "headerContent";
 	protected static final String HIDE_ICON_RENDERED = "hideIconRendered";
 	protected static final String MODAL = "modal";
-	protected static final String VISIBLE = "visible";
 	protected static final String Z_INDEX = "zIndex";
 
 	// Private Constants
@@ -51,14 +51,6 @@ public abstract class DialogRendererBase extends OverlayRendererBase {
 
 		Dialog dialog = (Dialog) uiComponent;
 		boolean first = true;
-
-		Boolean autoShow = dialog.isAutoShow();
-
-		if (autoShow != null) {
-
-			encodeVisible(responseWriter, dialog, autoShow, first);
-			first = false;
-		}
 
 		String headerText = dialog.getHeaderText();
 
@@ -95,10 +87,6 @@ public abstract class DialogRendererBase extends OverlayRendererBase {
 	@Override
 	protected String[] getModules() {
 		return MODULES;
-	}
-
-	protected void encodeVisible(ResponseWriter responseWriter, Dialog dialog, Boolean autoShow, boolean first) throws IOException {
-		encodeBoolean(responseWriter, VISIBLE, autoShow, first);
 	}
 
 	protected void encodeHeaderContent(ResponseWriter responseWriter, Dialog dialog, String headerText, boolean first) throws IOException {
