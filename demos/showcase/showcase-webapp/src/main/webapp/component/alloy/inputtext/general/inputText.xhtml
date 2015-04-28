@@ -4,33 +4,53 @@
 	xmlns:showcase="http://xmlns.jcp.org/jsf/composite/showcase" template="/templates/component-1col-60.xhtml">
 
 	<ui:define name="col1">
-	
+
 		<hr />
-		
-		<p:ajaxExceptionHandler update="exceptionDialog" onexception="PF('exceptionDialog').show();"/>
 
-        <p:dialog id="exceptionDialog" header="Error" widgetVar="exceptionDialog" closeOnEscape="true" modal="true" resizable="false" draggable="false">
-            <p:panelGrid id="exception-panel" columns="1" styleClass="ui-state-error" columnClasses="ui-state-error">
-                <p:outputLabel styleClass="ui-state-error-text"
-                               value="Some error! Contact administrator, please."/>
-                <p:outputLabel styleClass="ui-state-error-text" rendered="#{pfExceptionHandler.exception != null}"
-                               value="Technical Details: #{pfExceptionHandler.formattedTimestamp} #{pfExceptionHandler.type} #{pfExceptionHandler.message}"/>
-            </p:panelGrid>
-        </p:dialog>
+		<h:form>
+			<h3 style="margin-top: 0">AJAX</h3>
+			<p:commandButton actionListener="#{exceptionHandlerView.throwViewExpiredException}" ajax="true"
+				value="Throw ViewExpiredException!" onclick="PF('exceptionDialog').show();" />
+			<p:commandButton actionListener="#{exceptionHandlerView.throwNullPointerException}" ajax="true"
+				value="Throw NullPointerException!" onclick="PF('exceptionDialog').show();" />
+			<p:commandButton actionListener="#{exceptionHandlerView.throwWrappedIllegalStateException}" ajax="true"
+				value="Throw IllegalStateException!" onclick="PF('exceptionDialog').show();" />
 
-        <p:log/>
+			<h3>Non-AJAX</h3>
+			<p:commandButton actionListener="#{exceptionHandlerView.throwViewExpiredException}" ajax="false"
+				value="Throw ViewExpiredException!" />
+			<p:commandButton actionListener="#{exceptionHandlerView.throwNullPointerException}" ajax="false"
+				value="Throw NullPointerException!" />
 
-        <h:form id="form-test-error">
-            <p:commandButton value="Action Error" action="#{testError.causeActionError}" ajax="false"/>
-            <p:commandButton value="Action Error AJAX" action="#{testError.causeActionError}" update="label"/>
-            <p:commandButton value="Render Error" action="#{testError.causeRenderError}" ajax="false"/>
-            <p:commandButton value="Render Error AJAX" action="#{testError.causeRenderError}" update="label"/>
+
+			<p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException" update="exceptionDialog"
+				onexception="PF('exceptionDialog').show();" />
+
+			<p:ajaxExceptionHandler type="java.lang.NullPointerException" update="exceptionDialog"
+				onexception="PF('exceptionDialog').show();" />
+
+			<p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!" widgetVar="exceptionDialog"
+				height="500px">Message: #{pfExceptionHandler.message} <br />StackTrace: <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" />
+				<br />
+
+				<p:button onclick="document.location.href = document.location.href;" value="Reload!"
+					rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+			</p:dialog>
+			
+			<p:log />
+			
 			<hr />
-            <p:outputLabel id="label" value="#{testError.status}"/>
-        </h:form>
-        
-        <hr />
-	
+
+			<p:selectCheckboxMenu id="menu" value="#{checkboxView.selectedCities}" label="Cities" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:250px">
+				<f:selectItems value="#{checkboxView.cities}" />
+			</p:selectCheckboxMenu>
+
+			<hr />
+		</h:form>
+
+		<hr />
+
 		<alloy:form>
 			<showcase:example renderedCheckbox="true" requiredCheckbox="true">
 				<alloy:field label="#{i18n['text-field']}">
