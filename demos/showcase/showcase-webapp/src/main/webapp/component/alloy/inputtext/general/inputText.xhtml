@@ -10,11 +10,11 @@
 		<h:form>
 			<h3 style="margin-top: 0">AJAX</h3>
 			<p:commandButton actionListener="#{exceptionHandlerView.throwViewExpiredException}" ajax="true"
-				value="Throw ViewExpiredException!" onclick="PF('exceptionDialog').show();" />
+				value="Throw ViewExpiredException!" />
 			<p:commandButton actionListener="#{exceptionHandlerView.throwNullPointerException}" ajax="true"
-				value="Throw NullPointerException!" onclick="PF('exceptionDialog').show();" />
+				value="Throw NullPointerException!" />
 			<p:commandButton actionListener="#{exceptionHandlerView.throwWrappedIllegalStateException}" ajax="true"
-				value="Throw IllegalStateException!" onclick="PF('exceptionDialog').show();" />
+				value="Throw IllegalStateException!" />
 
 			<h3>Non-AJAX</h3>
 			<p:commandButton actionListener="#{exceptionHandlerView.throwViewExpiredException}" ajax="false"
@@ -37,16 +37,6 @@
 					rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
 			</p:dialog>
 			
-			<p:log />
-			
-			<hr />
-
-			<p:selectCheckboxMenu id="menu" value="#{checkboxView.selectedCities}" label="Cities" filter="true"
-				filterMatchMode="startsWith" panelStyle="width:250px">
-				<f:selectItems value="#{checkboxView.cities}" />
-			</p:selectCheckboxMenu>
-
-			<hr />
 		</h:form>
 
 		<hr />
